@@ -14,7 +14,7 @@ steps:
 - checkout: git://OrchestraManagement/Symphoniacus@develop
 - task: Gradle@2
   inputs:
-    gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew --include-build ../Symphoniacus'
+    gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew'
     gradleOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.11'
@@ -22,7 +22,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     checkStyleRunAnalysis: true
-    tasks: 'build'
+    tasks: 'build --include-build ../Symphoniacus'
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'JaCoCo'
