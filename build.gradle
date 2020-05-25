@@ -55,6 +55,7 @@ jar {
         attributes "Main-Class": "$mainClassName"
     }
 }
+
 /* JaCoCo configuration */
 jacoco {
     toolVersion = '0.8.5'
@@ -64,4 +65,10 @@ jacocoTestReport {
     reports {
         xml.enabled true
     }
+}
+
+build.dependsOn jacocoTestReport
+
+task buildComposite {
+    dependsOn gradle.includedBuild('Symphoniacus').task(':build')
 }
