@@ -1,7 +1,10 @@
-package at.fhv.teamb.symphoniacus;
+package at.fhv.teamb.symphoniacus.rest;
 
 import java.io.IOException;
 import java.net.URI;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -14,7 +17,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  */
 public class Main {
 
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(Main.class);
+    private static final Logger LOG = LogManager.getLogger(Main.class);
     private static final String BASE_URI = "http://0.0.0.0:9005/api/";
 
     /**
