@@ -16,7 +16,7 @@ steps:
   inputs:
     SourceFolder: '$(SymphoniacusAPI.WorkingDirectory)/config'
     Contents: '**'
-    TargetFolder: '.'
+    TargetFolder: './config/'
 - task: Gradle@2
   inputs:
     gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew'
