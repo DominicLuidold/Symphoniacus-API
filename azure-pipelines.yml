@@ -15,7 +15,8 @@ steps:
 - task: Gradle@2
   inputs:
     gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew'
-    gradleOptions: '-Xmx3072m --project-dir ./Symphoniacus-API'
+    options: '--project-dir ./Symphoniacus-API'
+    gradleOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.11'
     jdkArchitectureOption: 'x64'
