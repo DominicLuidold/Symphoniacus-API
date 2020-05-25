@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'Symphoniacus-API'
+// Include main Symphoniacus build
+includeBuild '../Symphoniacus'
