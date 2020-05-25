@@ -19,7 +19,7 @@ public class Main {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        String BASE_URI = "http://0.0.0.0:9005/api/";
+        final String BASE_URI = "http://0.0.0.0:9005/api/";
 
         HttpServer httpServer = GrizzlyHttpServerFactory
                 .createHttpServer(

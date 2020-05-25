@@ -1,4 +1,4 @@
-package at.fhv.teamb.symphoniacus.jersey;
+package at.fhv.teamb.symphoniacus.rest.jersey;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
