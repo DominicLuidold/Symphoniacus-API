@@ -22,7 +22,7 @@ public class DutyService {
         Duty duty = new DutyManager().loadDutyDetails(id).get();
 
         return new DutyDto.DutyDtoBuilder().withDutyId(
-                duty.getEntity().getDutyId()
+            duty.getEntity().getDutyId()
         ).build();
     }
 }

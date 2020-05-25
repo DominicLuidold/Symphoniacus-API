@@ -2,7 +2,6 @@ package at.fhv.teamb.symphoniacus.rest;
 
 import java.io.IOException;
 import java.net.URI;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -27,10 +26,10 @@ public class Main {
      */
     public static void main(String[] args) {
         HttpServer httpServer = GrizzlyHttpServerFactory
-                .createHttpServer(
-                        URI.create(BASE_URI),
-                        new ResourceConfig().packages("at.fhv.teamb.symphoniacus.rest")
-                );
+            .createHttpServer(
+                URI.create(BASE_URI),
+                new ResourceConfig().packages("at.fhv.teamb.symphoniacus.rest")
+            );
 
         try {
             httpServer.start();
