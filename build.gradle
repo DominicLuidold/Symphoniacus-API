@@ -68,7 +68,3 @@ jacocoTestReport {
 }
 
 build.dependsOn jacocoTestReport
-
-task buildComposite {
-    dependsOn gradle.includedBuild('Symphoniacus').task(':build')
-}
