@@ -10,6 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- checkout: self
+- checkout: Symphoniacus
 - task: Gradle@2
   inputs:
     gradleWrapperFile: 'gradlew'
