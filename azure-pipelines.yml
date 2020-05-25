@@ -12,6 +12,11 @@ pool:
 steps:
 - checkout: self
 - checkout: git://OrchestraManagement/Symphoniacus@develop
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(SymphoniacusAPI.WorkingDirectory)/config'
+    Contents: '**'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/config/'
 - task: Gradle@2
   inputs:
     gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew'
