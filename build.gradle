@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     // Symphoniacus composite build
-    implementation "at.fhv.teamb.symphoniacus:Symphoniacus:0.3"
+    implementation "at.fhv.teamb.symphoniacus:Symphoniacus:0.+"
 
     // LOGGING
     compile 'org.apache.logging.log4j:log4j-api:2.13.3'
