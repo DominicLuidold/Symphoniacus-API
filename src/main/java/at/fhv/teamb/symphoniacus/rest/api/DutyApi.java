@@ -2,9 +2,6 @@ package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
-import org.jvnet.hk2.annotations.Contract;
-
-import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

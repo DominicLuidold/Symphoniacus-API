@@ -11,6 +11,12 @@ import at.fhv.teamb.symphoniacus.domain.Duty;
  */
 public class DutyService {
 
+    /**
+     * Returns a duty, currently only id, with this id.
+     *
+     * @param id Id of Duty
+     * @return DutyDto
+     */
     public DutyDto getDuty(Integer id) {
         // THIS SHOULD RETURN A DTO INSTEAD -> CHANGE THIS
         Duty duty = new DutyManager().loadDutyDetails(id).get();
