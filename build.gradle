@@ -6,6 +6,7 @@
  * User Manual available at https://docs.gradle.org/6.3/userguide/java_library_plugin.html
  */
 plugins {
+    id 'checkstyle'
     id "java"
     id "application"
     id "idea" // I use IntelliJ IDEA
@@ -54,6 +55,12 @@ jar {
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
+}
+
+/* Checkstyle configuration */
+checkstyle {
+    toolVersion = '8.32'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 /* JaCoCo configuration */
