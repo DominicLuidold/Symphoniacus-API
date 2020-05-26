@@ -1,6 +1,7 @@
 package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
+import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ public class DutyApi {
     private DutyService dutyService = new DutyService();
 
     @GET
+    @Secured
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public DutyDto getDuty(@PathParam("id") Integer id) {
