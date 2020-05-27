@@ -11,6 +11,7 @@ plugins {
     id "application"
     id "idea" // I use IntelliJ IDEA
     id "jacoco" // for code coverage reports
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 repositories {
@@ -76,3 +77,13 @@ jacocoTestReport {
 }
 
 build.dependsOn jacocoTestReport
+
+shadowJar {
+    archiveFileName = 'Symphoniacus-API.jar'
+    mergeServiceFiles()
+    manifest {
+        attributes(
+                'Main-Class': "at.fhv.teamb.symphoniacus.rest.Main"
+        )
+    }
+}

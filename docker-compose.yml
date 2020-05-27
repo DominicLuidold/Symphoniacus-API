@@ -1,0 +1,7 @@
+version: "3"
+services:
+  api:
+    container_name: symphoniacus-api
+    build: .
+    ports: 
+      - "9005:9005"
