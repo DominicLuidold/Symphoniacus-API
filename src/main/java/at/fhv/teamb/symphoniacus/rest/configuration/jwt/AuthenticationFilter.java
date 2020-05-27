@@ -20,6 +20,15 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * This filter Class will filter each Request to an API Endpoint that have the @Secure annotation.
+ * The filter will look if there is a valid Json Web Token in the Authorization Header
+ * of the Request. The Request will be redirected if the Token is Signed with our key and the
+ * and the expiry date has not expired.
+ *
+ * @author Tobias Moser
+ **/
+
 @Provider
 @Secured
 @Priority(Priorities.AUTHENTICATION)

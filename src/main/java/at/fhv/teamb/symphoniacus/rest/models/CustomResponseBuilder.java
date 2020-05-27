@@ -1,5 +1,10 @@
 package at.fhv.teamb.symphoniacus.rest.models;
 
+/**
+ * Build a custom Response for the Symphoniacus Api.
+ *
+ * @author Tobias Moser
+ **/
 public class CustomResponseBuilder<T> {
     private String status;
     private int code;

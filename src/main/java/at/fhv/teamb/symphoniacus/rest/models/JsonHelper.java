@@ -5,6 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Call to help with handling Jsons.
+ *
+ * @author Tobias Moser
+ **/
+
 public class JsonHelper {
     private static final Logger LOG = LogManager.getLogger(JsonHelper.class);
 

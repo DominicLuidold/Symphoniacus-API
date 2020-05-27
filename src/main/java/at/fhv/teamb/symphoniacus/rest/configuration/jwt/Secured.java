@@ -8,6 +8,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.ws.rs.NameBinding;
 
+/**
+ * Annotation Interface to secure a API Endpoint.
+ *
+ * @author Tobias Moser
+ **/
+
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({TYPE, METHOD})
