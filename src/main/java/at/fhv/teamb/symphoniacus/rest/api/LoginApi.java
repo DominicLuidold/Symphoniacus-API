@@ -59,8 +59,8 @@ public class LoginApi {
         } catch (Exception e) {
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
-                            "The provided login credentials are invalid", 401
-                    )
+                            "Client Failure", 401
+                    ).withMessage("The provided login credentials are invalid")
                     .build();
 
             return Response

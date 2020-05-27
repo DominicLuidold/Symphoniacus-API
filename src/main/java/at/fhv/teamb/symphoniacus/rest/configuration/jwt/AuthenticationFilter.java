@@ -101,7 +101,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         // Abort the filter chain with a 401 status code response
         // The WWW-Authenticate header is sent along with the response
         CustomResponse<Void> errorResponse =
-                new CustomResponseBuilder<Void>("Not authorized for this action.", 401)
+                new CustomResponseBuilder<Void>("Client Failure", 401)
+                        .withMessage("Not authorized for this action.")
                 .build();
 
         requestContext.abortWith(

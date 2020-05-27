@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Tobias Moser
  **/
-
 public class JsonHelper {
     private static final Logger LOG = LogManager.getLogger(JsonHelper.class);
 
