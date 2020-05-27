@@ -2,10 +2,13 @@ package at.fhv.teamb.symphoniacus.rest;
 
 import java.io.IOException;
 import java.net.URI;
+
+import at.fhv.teamb.symphoniacus.rest.configuration.jersey.ObjectMapperResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -25,10 +28,15 @@ public class Main {
      * @param args Unused.
      */
     public static void main(String[] args) {
+        ResourceConfig rc = new ResourceConfig();
+        rc.register(JacksonFeature.class);
+        rc.register(ObjectMapperResolver.class);
+        rc.packages("at.fhv.teamb.symphoniacus.rest");
+
         HttpServer httpServer = GrizzlyHttpServerFactory
             .createHttpServer(
                 URI.create(BASE_URI),
-                new ResourceConfig().packages("at.fhv.teamb.symphoniacus.rest")
+                rc
             );
 
         try {
