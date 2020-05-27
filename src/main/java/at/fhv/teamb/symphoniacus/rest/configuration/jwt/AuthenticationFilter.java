@@ -10,6 +10,7 @@ import com.nimbusds.jwt.SignedJWT;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
@@ -126,12 +127,11 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         boolean verifiedSignature = false;
         String key = null;
         try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File keyFile = new File(classLoader.getResource("Api-Key.json").getFile());
+
             ObjectMapper mapper = new ObjectMapper();
-            Map<?, ?> map = mapper.readValue(
-                    Paths.get(
-                            System.getProperty("user.dir"),
-                            "/src/main/resources/Api-Key.json"
-                    ).toFile(), Map.class);
+            Map<?, ?> map = mapper.readValue(keyFile, Map.class);
 
             key = (String) map.get("key");
 

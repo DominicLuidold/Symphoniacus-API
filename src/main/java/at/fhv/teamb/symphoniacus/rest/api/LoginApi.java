@@ -15,6 +15,9 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+
+import java.io.File;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Map;
@@ -113,12 +116,12 @@ public class LoginApi {
         String key = null;
 
         try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File keyFile = new File(classLoader.getResource("Api-Key.json").getFile());
+
             ObjectMapper mapper = new ObjectMapper();
             Map<?, ?> map = mapper.readValue(
-                    Paths.get(
-                            System.getProperty("user.dir"),
-                            "/src/main/resources/Api-Key.json"
-                    ).toFile(), Map.class);
+                    keyFile, Map.class);
 
             key = (String) map.get("key");
 
