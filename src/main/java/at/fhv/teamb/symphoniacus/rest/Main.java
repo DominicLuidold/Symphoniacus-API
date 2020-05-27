@@ -29,8 +29,8 @@ public class Main {
      */
     public static void main(String[] args) {
         ResourceConfig rc = new ResourceConfig();
-        rc.register(JacksonFeature.class);
         rc.register(ObjectMapperResolver.class);
+        rc.register(JacksonFeature.class);
         rc.packages("at.fhv.teamb.symphoniacus.rest");
 
         HttpServer httpServer = GrizzlyHttpServerFactory

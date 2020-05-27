@@ -7,6 +7,9 @@ import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
@@ -33,6 +36,7 @@ import javax.ws.rs.ext.Provider;
 @Secured
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
+    private static final Logger LOG = LogManager.getLogger(AuthenticationFilter.class);
     private static final String REALM = "example";
     private static final String AUTHENTICATION_SCHEME = "Bearer";
 

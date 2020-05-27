@@ -1,10 +1,13 @@
 package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
+import at.fhv.teamb.symphoniacus.domain.Duty;
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
+import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
 import java.security.Principal;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -47,7 +50,7 @@ public class DutyApi {
     @Secured
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllDuties(@Context SecurityContext securityContext) {
-        return new CustomResponseBuilder<Void>("get all duties", 200).build().toJson();
+    public CustomResponse<List<Duty>> getAllDuties(@Context SecurityContext securityContext) {
+        return new CustomResponseBuilder<List<Duty>>("get all duties", 200).build();
     }
 }

@@ -35,8 +35,4 @@ public class CustomResponse<T> {
     public T getPayload() {
         return payload;
     }
-
-    public String toJson() {
-        return JsonHelper.toJson(this).replaceAll("null", "{}");
-    }
 }

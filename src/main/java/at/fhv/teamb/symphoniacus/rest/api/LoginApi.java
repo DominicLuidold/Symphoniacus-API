@@ -54,7 +54,7 @@ public class LoginApi {
                     .build();
 
 
-            return Response.ok(tokeResponse.toJson()).build();
+            return Response.ok(tokeResponse).build();
 
         } catch (Exception e) {
             CustomResponse<Void> errorResponse =
@@ -66,7 +66,7 @@ public class LoginApi {
             return Response
                     .status(Response.Status.FORBIDDEN)
                     .type("text/json")
-                    .entity(errorResponse.toJson())
+                    .entity(errorResponse)
                     .build();
         }
     }
