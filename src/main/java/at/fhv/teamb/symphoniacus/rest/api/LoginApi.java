@@ -3,6 +3,7 @@ package at.fhv.teamb.symphoniacus.rest.api;
 import at.fhv.teamb.symphoniacus.application.dto.LoginUserDto;
 import at.fhv.teamb.symphoniacus.rest.models.Credentials;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
+import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.models.JsonHelper;
 import at.fhv.teamb.symphoniacus.rest.models.JwToken;
 import at.fhv.teamb.symphoniacus.rest.service.LoginService;
@@ -10,10 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSObject;
-import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 import javax.ws.rs.Consumes;
@@ -24,11 +27,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-
 @Path("/login")
 public class LoginApi {
     /**
-     * asdf.
+     * Login endpoint to get a valid JWT to given valid Username and Password in the Post Request.
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +49,7 @@ public class LoginApi {
 
             // Return the token on the response
             CustomResponse<JwToken> tokeResponse =
-                    new CustomResponse.CustomResponseBuilder("success", 200)
+                    new CustomResponseBuilder<JwToken>("success", 200)
                     .withPayload(new JwToken(token))
                     .build();
 
@@ -55,8 +57,10 @@ public class LoginApi {
             return Response.ok(tokeResponse.toJson()).build();
 
         } catch (Exception e) {
-            CustomResponse errorResponse = new CustomResponse
-                    .CustomResponseBuilder("The provided login credentials are invalid", 401)
+            CustomResponse<Void> errorResponse =
+                    new CustomResponseBuilder<Void>(
+                            "The provided login credentials are invalid", 401
+                    )
                     .build();
 
             return Response
@@ -92,8 +96,15 @@ public class LoginApi {
      */
     private String issueToken(LoginUserDto user) throws JOSEException {
         String data = JsonHelper.toJson(user);
-        JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS256),
-                new Payload(data));
+        JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+                .issuer("Symphoiacus")
+                .expirationTime(new Date(new Date().getTime() + 3600 * 4 * 1000))
+                .claim("username", user.getUserShortcut())
+                .claim("fullName", user.getFullName())
+                .claim("userType", user.getType())
+                .build();
+
+        SignedJWT signedJwt = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
 
         /* // For generating random Keys.
         byte[] sharedKey = new byte[32];
@@ -115,9 +126,9 @@ public class LoginApi {
             ex.printStackTrace();
         }
 
+        JWSSigner signer = new MACSigner(key);
+        signedJwt.sign(signer);
 
-        jwsObject.sign(new MACSigner(key));
-
-        return jwsObject.serialize();
+        return signedJwt.serialize();
     }
 }
