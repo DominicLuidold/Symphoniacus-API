@@ -1,9 +1,13 @@
 package at.fhv.teamb.symphoniacus.rest.configuration.jwt;
 
+import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Map;
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -60,10 +64,16 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
         // Abort the filter chain with a 401 status code response
         // The WWW-Authenticate header is sent along with the response
+        CustomResponse errorResponse = new CustomResponse
+                .CustomResponseBuilder("Not authorized for this action.", 401)
+                .build();
+
         requestContext.abortWith(
                 Response.status(Response.Status.UNAUTHORIZED)
                         .header(HttpHeaders.WWW_AUTHENTICATE,
                                 AUTHENTICATION_SCHEME + " realm=\"" + REALM + "\"")
+                        .type("text/json")
+                        .entity(errorResponse)
                         .build());
     }
 
@@ -74,11 +84,25 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     private void validateToken(String token) throws Exception {
         boolean verifiedSignature = false;
 
-        JWSVerifier verifier =
-                new MACVerifier(
-                "OJsSd348gbnme9nFL1xiL2xCgaklBHOQEyFh4HWiTiEKY3p6QfXPdVhUk9"
-                        .getBytes()
-        );
+        //TODO save key in config file
+
+        String key = null;
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<?, ?> map = mapper.readValue(
+                    Paths.get(
+                            System.getProperty("user.dir"),
+                            "/src/main/resources/Api-Key.json"
+                    ).toFile(), Map.class);
+
+            key = (String) map.get("key");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        JWSVerifier verifier = new MACVerifier(key);
         JWSObject jwsObject = JWSObject.parse(token);
         verifiedSignature = jwsObject.verify(verifier);
 

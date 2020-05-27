@@ -6,12 +6,15 @@ import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.JsonHelper;
 import at.fhv.teamb.symphoniacus.rest.models.JwToken;
 import at.fhv.teamb.symphoniacus.rest.service.LoginService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.MACSigner;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -96,8 +99,25 @@ public class LoginApi {
         byte[] sharedKey = new byte[32];
         new SecureRandom().nextBytes(sharedKey);
          */
+        String key = null;
 
-        jwsObject.sign(new MACSigner("OJsSd348gbnme9nFL1xiL2xCgaklBHOQEyFh4HWiTiEKY3p6QfXPdVhUk9"));
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<?, ?> map = mapper.readValue(
+                    Paths.get(
+                            System.getProperty("user.dir"),
+                            "/src/main/resources/Api-Key.json"
+                    ).toFile(), Map.class);
+
+            key = (String) map.get("key");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        jwsObject.sign(new MACSigner(key));
+
         return jwsObject.serialize();
     }
 }
