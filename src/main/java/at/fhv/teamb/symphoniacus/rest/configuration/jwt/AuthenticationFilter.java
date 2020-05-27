@@ -23,6 +23,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This filter Class will filter each Request to an API Endpoint that have the @Secure annotation.
@@ -61,14 +63,14 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         try {
 
             // Validate the token
-            String username = validateToken(token);
+            String userId = validateToken(token);
 
             final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
             requestContext.setSecurityContext(new SecurityContext() {
 
                 @Override
                 public Principal getUserPrincipal() {
-                    return () -> username;
+                    return () -> userId;
                 }
 
                 @Override
@@ -146,13 +148,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
                 && (new Date().before(signedJwt.getJWTClaimsSet().getExpirationTime()));
 
         JWTClaimsSet claims = signedJwt.getJWTClaimsSet();
-        String username = (String) claims.getClaim("username");
-
+        Long userId = (Long) claims.getClaim("userId");
 
         if (!verifiedSignature) {
             throw new Exception();
         }
 
-        return username;
+        return String.valueOf(userId);
     }
 }

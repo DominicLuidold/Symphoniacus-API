@@ -105,6 +105,7 @@ public class LoginApi {
                 .claim("username", user.getUserShortcut())
                 .claim("fullName", user.getFullName())
                 .claim("userType", user.getType())
+                .claim("userId", user.getUserId())
                 .build();
 
         SignedJWT signedJwt = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
