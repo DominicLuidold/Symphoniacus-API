@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "6fbc4ecd-18e8-4fd5-9667-7b6a3c1250d5",
+		"name": "Symphoniacus_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\" : \"pain\",\n\t\"password\" : \"rbp\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/login",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Duties",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/duties",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"duties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Wishes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTk4MTA3LCJ1c2VybmFtZSI6InBhaW4ifQ.EH9eHUYoH2GjBgeq43cIqh5-bzVm7hmYGI7GD5yPF1U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/wishes",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"wishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new wish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/wishes",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"wishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get wish details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/wishes/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"wishes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update wish details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/wishes/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"wishes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete wish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9005/api/wishes/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9005",
+					"path": [
+						"api",
+						"wishes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
