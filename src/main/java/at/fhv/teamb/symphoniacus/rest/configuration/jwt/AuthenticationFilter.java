@@ -2,6 +2,7 @@ package at.fhv.teamb.symphoniacus.rest.configuration.jwt;
 
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
+import at.fhv.teamb.symphoniacus.rest.service.AuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -11,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Map;
@@ -127,19 +127,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
      */
     private String validateToken(String token) throws Exception {
         boolean verifiedSignature = false;
-        String key = null;
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File keyFile = new File(classLoader.getResource("Api-Key.json").getFile());
 
-            ObjectMapper mapper = new ObjectMapper();
-            Map<?, ?> map = mapper.readValue(keyFile, Map.class);
-
-            key = (String) map.get("key");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String key = new AuthenticationService().getKey();
 
         SignedJWT signedJwt = SignedJWT.parse(token);
         JWSVerifier verifier = new MACVerifier(key);
