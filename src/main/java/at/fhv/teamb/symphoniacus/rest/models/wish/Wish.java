@@ -13,7 +13,12 @@ public class Wish<T> {
     private final T details;
 
 
-    private Wish(WishType wishtype, WishTargetType target, String status, String reason, T details) {
+    private Wish(WishType wishtype,
+                 WishTargetType target,
+                 String status,
+                 String reason,
+                 T details
+    ) {
         this.wishType = wishtype;
         this.target = target;
         this.status = status;
@@ -68,7 +73,7 @@ public class Wish<T> {
             return this;
         }
 
-        public WishBuilder withDetails(T details ) {
+        public WishBuilder withDetails(T details) {
             this.details = details;
             return this;
         }
