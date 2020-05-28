@@ -2,7 +2,6 @@ package at.fhv.teamb.symphoniacus.rest.service;
 
 import at.fhv.teamb.symphoniacus.application.LoginManager;
 import at.fhv.teamb.symphoniacus.application.dto.LoginUserDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -12,15 +11,14 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import java.io.File;
+
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 public class AuthenticationService {
-    private String key;
+    private String key = "TOwI2UkozlMlJarvxQWoNlXXcWiE5T49iAJ3fD5LkiLRK9smDOA5Svoj4l"
+            + "WeNG57YKwjHAHp3jijuTkpLoYcNjI6wiwPXhtN04gFkeT10";
 
     /**
      * Service to process a Login of a User.
@@ -98,24 +96,6 @@ public class AuthenticationService {
      * @return the Api key of Symphoniacus
      */
     public String getKey() {
-        if (this.key == null) {
-            try {
-                ClassLoader classLoader = getClass().getClassLoader();
-                File keyFile = new File(
-                        Objects.requireNonNull(
-                                classLoader.getResource("Api-Key.json")
-                        ).getFile()
-                );
-
-                ObjectMapper mapper = new ObjectMapper();
-                Map<?, ?> map = mapper.readValue(keyFile, Map.class);
-
-                this.key = (String) map.get("key");
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
         return this.key;
     }
 }
