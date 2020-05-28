@@ -3,12 +3,10 @@ package at.fhv.teamb.symphoniacus.rest.configuration.jwt;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.service.AuthenticationService;
-import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import java.security.Principal;
-import java.util.Date;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -17,8 +15,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.security.Principal;
+import java.util.Optional;
 
 /**
  * This filter Class will filter each Request to an API Endpoint that have the @Secure annotation.
@@ -98,7 +96,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext) {
-
         // Abort the filter chain with a 401 status code response
         // The WWW-Authenticate header is sent along with the response
         CustomResponse<Void> errorResponse =
@@ -120,22 +117,15 @@ public class AuthenticationFilter implements ContainerRequestFilter {
      * @param token given from the User.
      */
     private String validateToken(String token) throws Exception {
-        boolean verifiedSignature = false;
-
-        String key = new AuthenticationService().getKey();
-
-        SignedJWT signedJwt = SignedJWT.parse(token);
-        JWSVerifier verifier = new MACVerifier(key);
-
-        verifiedSignature = signedJwt.verify(verifier)
-                && (new Date().before(signedJwt.getJWTClaimsSet().getExpirationTime()));
-
-        JWTClaimsSet claims = signedJwt.getJWTClaimsSet();
-        Long userId = (Long) claims.getClaim("userId");
+        Optional<SignedJWT> signedJwtOpt = new AuthenticationService().verifyToken(token);
+        boolean verifiedSignature = signedJwtOpt.isPresent();
 
         if (!verifiedSignature) {
             throw new Exception();
         }
+        SignedJWT signedJwt = signedJwtOpt.get();
+        JWTClaimsSet claims = signedJwt.getJWTClaimsSet();
+        Long userId = (Long) claims.getClaim("userId");
 
         return String.valueOf(userId);
     }
