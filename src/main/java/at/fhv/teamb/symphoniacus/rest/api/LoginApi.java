@@ -19,6 +19,9 @@ import javax.ws.rs.core.Response;
 
 @Path("/login")
 public class LoginApi {
+
+    private AuthenticationService authenticationService = new AuthenticationService();
+
     /**
      * Login endpoint to get a valid JWT to given valid Username and Password in the Post Request.
      */
@@ -68,8 +71,7 @@ public class LoginApi {
      * @return a LoginUserDto of the user if the given Parameters are valid.
      */
     private LoginUserDto authenticate(String username, String password) throws Exception {
-        AuthenticationService authenticationService = new AuthenticationService();
-        Optional<LoginUserDto> loginUser = authenticationService.login(username, password);
+        Optional<LoginUserDto> loginUser = this.authenticationService.login(username, password);
 
         if (loginUser.isEmpty()) {
             throw new Exception();
@@ -85,7 +87,6 @@ public class LoginApi {
      * @return String representation of a JWT
      */
     private String issueToken(LoginUserDto user) throws JOSEException {
-        AuthenticationService authenticationService = new AuthenticationService();
-        return authenticationService.issueToken(user);
+        return this.authenticationService.issueToken(user);
     }
 }
