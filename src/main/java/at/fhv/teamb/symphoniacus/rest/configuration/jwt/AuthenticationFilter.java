@@ -3,18 +3,12 @@ package at.fhv.teamb.symphoniacus.rest.configuration.jwt;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.service.AuthenticationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.File;
 import java.security.Principal;
 import java.util.Date;
-import java.util.Map;
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
