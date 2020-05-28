@@ -71,7 +71,6 @@ public class DutyApi {
      */
     @GET
     @Secured
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllDuties(@Context SecurityContext securityContext) {
         //To get the current logged in Username

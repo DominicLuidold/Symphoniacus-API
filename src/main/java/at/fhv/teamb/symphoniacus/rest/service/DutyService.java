@@ -1,16 +1,13 @@
 package at.fhv.teamb.symphoniacus.rest.service;
 
 import at.fhv.teamb.symphoniacus.application.DutyManager;
-import at.fhv.teamb.symphoniacus.application.LoginManager;
-import at.fhv.teamb.symphoniacus.application.MusicianManager;
 import at.fhv.teamb.symphoniacus.application.dto.DutyCategoryDto;
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
 import at.fhv.teamb.symphoniacus.application.dto.MusicalPieceDto;
 import at.fhv.teamb.symphoniacus.application.dto.SeriesOfPerformancesDto;
 import at.fhv.teamb.symphoniacus.domain.Duty;
-import at.fhv.teamb.symphoniacus.domain.Musician;
-import at.fhv.teamb.symphoniacus.persistence.model.interfaces.IDutyPositionEntity;
 import at.fhv.teamb.symphoniacus.persistence.model.interfaces.IMusicalPieceEntity;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -21,6 +18,8 @@ import java.util.Set;
  * @author Valentin Goronjic
  */
 public class DutyService {
+
+    private DutyManager dutyManager = new DutyManager();
 
     /**
      * Returns a duty, currently only id, with this id.
@@ -44,6 +43,9 @@ public class DutyService {
      * @return all Duties of the user
      */
     public Set<DutyDto> getAllDuties(Integer userId) {
+        System.out.println("asdf");
+        return this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
+        /*
         Set<DutyDto> duties = new HashSet<>();
 
         MusicianManager musicianManager = new MusicianManager();
@@ -67,6 +69,7 @@ public class DutyService {
         }
 
         return null;
+        */
     }
 
     private DutyDto dutyToDto(Duty duty) {
