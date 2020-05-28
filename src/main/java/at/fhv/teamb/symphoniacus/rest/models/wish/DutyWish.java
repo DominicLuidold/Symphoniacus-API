@@ -3,7 +3,11 @@ package at.fhv.teamb.symphoniacus.rest.models.wish;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * API class for {@link DutyWish}.
+ *
+ * @author Tobias Moser
+ */
 public class DutyWish {
     private Integer dutyId;
     private List<Integer> musicalPieces;

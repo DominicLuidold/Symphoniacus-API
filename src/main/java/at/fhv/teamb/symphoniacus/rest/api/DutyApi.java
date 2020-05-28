@@ -3,6 +3,7 @@ package at.fhv.teamb.symphoniacus.rest.api;
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
+import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWish;
 import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
 
@@ -19,6 +20,7 @@ import java.util.Set;
  * API class for {@link DutyDto}.
  *
  * @author Valentin Goronjic
+ * @author Tobias Moser
  */
 @Path("/duties")
 public class DutyApi {
@@ -32,7 +34,6 @@ public class DutyApi {
      */
     @GET
     @Secured
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllDuties(@Context SecurityContext securityContext) {
         //To get the current logged in Username
@@ -150,7 +151,7 @@ public class DutyApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateWisheOfDuty(@PathParam("d_id") Integer dutyId,
                                        @PathParam("w_id") Integer wishId,
-                                       Wish<?> wish,
+                                       Wish<DutyWish> dutyWish,
                                        @Context SecurityContext securityContext) {
 
         return Response
@@ -158,6 +159,32 @@ public class DutyApi {
                 .type("text/json")
                 .entity(new CustomResponseBuilder<DutyDto>("success",200)
                         .withMessage("update one wish with id: " + wishId + " duty id: " + dutyId)
+                        .build()
+                )
+                .build();
+    }
+
+    /**
+     * Create one specific wish of a specific duty.
+     *
+     * @param dutyId of the given duty.
+     * @param wishId of the requested duty.
+     */
+    @POST
+    @Secured
+    @Path("/{d_id}/wishes/{w_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createWisheOfDuty(@PathParam("d_id") Integer dutyId,
+                                      @PathParam("w_id") Integer wishId,
+                                      Wish<DutyWish> dutyWish,
+                                      @Context SecurityContext securityContext) {
+
+        return Response
+                .status(Response.Status.OK)
+                .type("text/json")
+                .entity(new CustomResponseBuilder<DutyDto>("success",200)
+                        .withMessage("Create one wish with id: " + wishId + " duty id: " + dutyId)
                         .build()
                 )
                 .build();

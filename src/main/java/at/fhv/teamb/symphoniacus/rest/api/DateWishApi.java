@@ -1,8 +1,9 @@
 package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
-import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
+import at.fhv.teamb.symphoniacus.rest.models.wish.DateWish;
+import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
@@ -17,6 +18,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+/**
+ * API class for {@link DateWish}.
+ *
+ * @author Tobias Moser
+ */
 @Path("/datewishes")
 public class DateWishApi {
 
@@ -25,7 +31,6 @@ public class DateWishApi {
      */
     @GET
     @Secured
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllWishesOfUser(@Context SecurityContext securityContext) {
         return Response
@@ -42,9 +47,9 @@ public class DateWishApi {
      */
     @POST
     @Secured
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addNewWish(@Context SecurityContext securityContext) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addNewWish(@Context SecurityContext securityContext, Wish<DateWish> dateWish) {
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
@@ -81,7 +86,7 @@ public class DateWishApi {
     @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateWishDetails(@PathParam("id") Integer id, CustomResponse asfd,
+    public Response updateWishDetails(@PathParam("id") Integer id, String dateWish,
                                              @Context SecurityContext securityContext) {
 
         return Response

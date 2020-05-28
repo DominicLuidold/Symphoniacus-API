@@ -16,6 +16,11 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * Class for all functions needed for the Authentication.
+ *
+ * @author Tobias Moser
+ */
 public class AuthenticationService {
     private String key = "TOwI2UkozlMlJarvxQWoNlXXcWiE5T49iAJ3fD5LkiLRK9smDOA5Svoj4l"
             + "WeNG57YKwjHAHp3jijuTkpLoYcNjI6wiwPXhtN04gFkeT10";
@@ -31,7 +36,6 @@ public class AuthenticationService {
                 .withUserShortcut(username)
                 .withPassword(password)
                 .build();
-
 
         return loginManager.login(dto);
     }

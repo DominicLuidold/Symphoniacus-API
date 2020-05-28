@@ -1,11 +1,11 @@
 package at.fhv.teamb.symphoniacus.rest.models.wish;
 
 /**
- * Type class for {@link WishTargetType}.
+ * Type class for {@link WishType}.
  *
  * @author Tobias Moser
  */
-public enum WishTargetType {
-    DATE,
-    DUTY
+public enum WishType {
+    NEGATIVE,
+    POSITIVE
 }

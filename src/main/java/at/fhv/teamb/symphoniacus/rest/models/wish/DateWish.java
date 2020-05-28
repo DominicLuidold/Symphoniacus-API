@@ -2,6 +2,11 @@ package at.fhv.teamb.symphoniacus.rest.models.wish;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model class for {@link DateWish}.
+ *
+ * @author Tobias Moser
+ */
 public class DateWish {
     private LocalDateTime start;
     private LocalDateTime end;
@@ -15,15 +20,7 @@ public class DateWish {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
-        this.start = start;
-    }
-
     public LocalDateTime getEnd() {
         return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
     }
 }
