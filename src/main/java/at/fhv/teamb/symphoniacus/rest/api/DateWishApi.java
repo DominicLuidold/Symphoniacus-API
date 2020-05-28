@@ -14,50 +14,65 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
-@Path("/wishes")
-public class WishApi {
+@Path("/datewishes")
+public class DateWishApi {
 
+    /**
+     * Get all date wishes of a User.
+     */
     @GET
     @Secured
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomResponse getAllWishesOfUser(@Context SecurityContext securityContext) {
-        return new CustomResponseBuilder<Void>("getAllWishesOfUser", 200).build();
+        return new CustomResponseBuilder<Void>("Get all date wishes of a User", 200).build();
     }
 
+    /**
+     * Add a new date wish.
+     */
     @POST
     @Secured
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomResponse addNewWish(@Context SecurityContext securityContext) {
-        return new CustomResponseBuilder<Void>("addNewWish", 200).build();
+        return new CustomResponseBuilder<Void>("Add a new date wish", 200).build();
     }
 
+    /**
+     * Get the details of a date wish.
+     */
     @GET
     @Secured
-    @Path("/{id}")
+    @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomResponse getWishDetails(@PathParam("id") Integer id,
                                           @Context SecurityContext securityContext) {
-        return new CustomResponseBuilder<Void>("getWishDetails", 200).build();
+        return new CustomResponseBuilder<Void>("Get date wish details", 200).build();
     }
 
+    /**
+     * Update data of a existing date wish.
+     */
     @PUT
     @Secured
-    @Path("/{id}")
+    @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomResponse updateWishDetails(@PathParam("id") Integer id,
                                              @Context SecurityContext securityContext) {
         return new CustomResponseBuilder<Void>("updateWishDetails", 200).build();
     }
 
+    /**
+     * Delete a date wish of the given ID.
+     */
     @DELETE
     @Secured
-    @Path("/{id}")
+    @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomResponse deleteWish(@PathParam("id") Integer id,
                                           @Context SecurityContext securityContext) {
-        return new CustomResponseBuilder<Void>("deleteWish", 200).build();
+        return new CustomResponseBuilder<Void>("delete date Wish", 200).build();
     }
 
 }

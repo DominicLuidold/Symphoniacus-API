@@ -26,32 +26,6 @@ public class DutyApi {
     private DutyService dutyService = new DutyService();
 
     /**
-     * Get a specific Duty to a given Id.
-     *
-     * @param id of the Duty to return.
-     * @param securityContext to get the current Logged in UserId.
-     * @return
-     */
-    @GET
-    @Secured
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public CustomResponse getDuty(@PathParam("id") Integer id,
-                                  @Context SecurityContext securityContext) {
-        DutyDto duty = dutyService.getDuty(id);
-
-        if (duty != null) {
-            return new CustomResponseBuilder<DutyDto>("success", 200)
-                    .withPayload(duty)
-                    .build();
-        }
-
-        return new CustomResponseBuilder<Void>("Client Failure", 404)
-                .withMessage("Duty not Found")
-                .build();
-    }
-
-    /**
      * All Duties which is the current logged in User is assigned in a position.
      *
      * @return all Duties which is the current logged in User is assigned in a position
@@ -65,7 +39,7 @@ public class DutyApi {
         Principal principal = securityContext.getUserPrincipal();
         String username = principal.getName();
 
-        Set<DutyDto> duties = dutyService.getAllDuties(Integer.valueOf(username));
+        Set<DutyDto> duties = this.dutyService.getAllDuties(Integer.valueOf(username));
 
         if (duties != null) {
             return new CustomResponseBuilder<Set<DutyDto>>("success", 200)
@@ -75,6 +49,67 @@ public class DutyApi {
 
         return new CustomResponseBuilder<Void>("Client Failure", 400)
                 .withMessage("No Duties Found")
+                .build();
+    }
+
+    /**
+     * Get a specific Duty to a given Id.
+     *
+     * @param id of the Duty to return.
+     */
+    @GET
+    @Secured
+    @Path("/{id  : \\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CustomResponse getDuty(@PathParam("id") Integer id,
+                                  @Context SecurityContext securityContext) {
+        DutyDto duty = this.dutyService.getDuty(id);
+
+        if (duty != null) {
+            return new CustomResponseBuilder<DutyDto>("success", 200)
+                    .withPayload(duty)
+                    .build();
+        }
+
+        return new CustomResponseBuilder<Void>("Client Failure", 404)
+                .withMessage("Duty not Found")
+                .build();
+    }
+
+    /**
+     * Get all wishes of a given duty ID.
+     *
+     * @param id of the Duty.
+     */
+    @GET
+    @Secured
+    @Path("/{id  : \\d+}/wishes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CustomResponse getAllWishesOfDuty(@PathParam("id") Integer id,
+                                  @Context SecurityContext securityContext) {
+
+        return new CustomResponseBuilder<Void>("success", 200)
+                .withMessage("getAllWishesOfDutyID: " + id)
+                .build();
+    }
+
+
+    /**
+     * Get one specific wish of a specific duty.
+     *
+     * @param dutyId of the given duty.
+     * @param wishId of the requested duty.
+     */
+    @GET
+    @Secured
+    @Path("/{d_id  : \\d+}/wishes/{w_id : \\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CustomResponse getOneWishesOfDuty(@PathParam("d_id") Integer dutyId,
+                                             @PathParam("w_id") Integer wishId,
+                                             @Context SecurityContext securityContext) {
+
+        return new CustomResponseBuilder<Void>("success", 200)
+                .withMessage("get one wish with id: " + wishId + " and duty id: " + dutyId)
                 .build();
     }
 }
