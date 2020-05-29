@@ -1,4 +1,4 @@
-package at.fhv.teamb.symphoniacus.rest.jersey;
+package at.fhv.teamb.symphoniacus.rest.configuration.jersey;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
