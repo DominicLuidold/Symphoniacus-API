@@ -75,7 +75,10 @@ public class DateWishApi {
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewWish(@Context SecurityContext securityContext, WishDto<DateWishDto> dateWish) {
+    public Response addNewWish(
+            @Context SecurityContext securityContext,
+            WishDto<DateWishDto> dateWish
+    ) {
         Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.addNewDateWish(dateWish);
 
         if (persDateWish.isPresent()) {

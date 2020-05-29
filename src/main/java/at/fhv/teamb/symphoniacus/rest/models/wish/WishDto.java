@@ -16,6 +16,9 @@ public class WishDto<T> {
 
     public WishDto(){}
 
+    /**
+     * Constructor for WishDto.
+     */
     public WishDto(
                  Integer wishId,
                  WishType wishType,

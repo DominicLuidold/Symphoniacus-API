@@ -85,7 +85,7 @@ public class DutyApi {
      */
     @GET
     @Secured
-    @Path("/{id}")
+    @Path("/{id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDuty(
             @PathParam("id") Integer id,
@@ -108,7 +108,7 @@ public class DutyApi {
         return Response
             .status(Response.Status.OK)
             .type("text/json")
-            .entity(new CustomResponseBuilder<DutyDto>("success",201)
+            .entity(new CustomResponseBuilder<DutyDto>("success",200)
                 .withPayload(duty)
                 .build()
             )
@@ -122,7 +122,7 @@ public class DutyApi {
      */
     @GET
     @Secured
-    @Path("/{id}/wishes")
+    @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllWishesOfDuty(@PathParam("id") Integer id,
                                              @Context SecurityContext securityContext) {
@@ -146,7 +146,7 @@ public class DutyApi {
      */
     @GET
     @Secured
-    @Path("/{d_id}/wishes/{w_id}")
+    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOneWisheOfDuty(@PathParam("d_id") Integer dutyId,
                                              @PathParam("w_id") Integer wishId,
@@ -170,7 +170,7 @@ public class DutyApi {
      */
     @PUT
     @Secured
-    @Path("/{d_id}/wishes/{w_id}")
+    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateWisheOfDuty(@PathParam("d_id") Integer dutyId,
@@ -196,7 +196,7 @@ public class DutyApi {
      */
     @POST
     @Secured
-    @Path("/{d_id}/wishes/{w_id}")
+    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createWisheOfDuty(@PathParam("d_id") Integer dutyId,
@@ -222,7 +222,7 @@ public class DutyApi {
      */
     @DELETE
     @Secured
-    @Path("/{d_id}/wishes/{w_id}")
+    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteWisheOfDuty(@PathParam("d_id") Integer dutyId,
                                       @PathParam("w_id") Integer wishId,
