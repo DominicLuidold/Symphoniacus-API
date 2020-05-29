@@ -3,8 +3,8 @@ package at.fhv.teamb.symphoniacus.rest.api;
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
-import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWish;
-import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
+import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWishDto;
+import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -173,7 +173,7 @@ public class DutyApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateWisheOfDuty(@PathParam("d_id") Integer dutyId,
                                        @PathParam("w_id") Integer wishId,
-                                       Wish<DutyWish> dutyWish,
+                                       WishDto<DutyWishDto> dutyWish,
                                        @Context SecurityContext securityContext) {
 
         return Response
@@ -199,7 +199,7 @@ public class DutyApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createWisheOfDuty(@PathParam("d_id") Integer dutyId,
                                       @PathParam("w_id") Integer wishId,
-                                      Wish<DutyWish> dutyWish,
+                                      WishDto<DutyWishDto> dutyWish,
                                       @Context SecurityContext securityContext) {
 
         return Response

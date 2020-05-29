@@ -2,8 +2,9 @@ package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
-import at.fhv.teamb.symphoniacus.rest.models.wish.DateWish;
-import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
+import at.fhv.teamb.symphoniacus.rest.models.wish.DateWishDto;
+import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
+import at.fhv.teamb.symphoniacus.rest.service.DateWishService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,14 +19,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
+import java.util.Optional;
+import java.util.Set;
 
 /**
- * API class for {@link DateWish}.
+ * API class for {@link DateWishDto}.
  *
  * @author Tobias Moser
  */
 @Path("/datewishes")
 public class DateWishApi {
+    DateWishService dateWishService = new DateWishService();
 
     /**
      * Get all date wishes of a User.
@@ -38,11 +42,25 @@ public class DateWishApi {
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
 
+        Set<WishDto<DateWishDto>> wishes = this.dateWishService.getAllDateWishes(userID);
+
+        if (wishes.size() == 0) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Set<WishDto<DateWishDto>>>("success", 200)
+                            .withMessage("Cant find any date wishes.")
+                            .withPayload(wishes)
+                            .build()
+                    )
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("Get all date wishes of a User", 200)
+                .entity(new CustomResponseBuilder<Set<WishDto<DateWishDto>>>("success", 200)
+                        .withPayload(wishes)
                         .build()
                 )
                 .build();
@@ -55,14 +73,28 @@ public class DateWishApi {
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewWish(@Context SecurityContext securityContext, Wish<DateWish> dateWish) {
+    public Response addNewWish(@Context SecurityContext securityContext, WishDto<DateWishDto> dateWish) {
+        Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.addNewDateWish(dateWish);
+
+        if (persDateWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("success", 201)
+                            .withPayload(persDateWish.get())
+                            .build()
+                    )
+                    .build();
+        }
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("Add a new date wish", 200)
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
+                        .withMessage("Cant save new date wishe.")
                         .build()
                 )
                 .build();
+
     }
 
     /**
@@ -74,11 +106,23 @@ public class DateWishApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWishDetails(@PathParam("id") Integer id,
                                           @Context SecurityContext securityContext) {
+        Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.detailsDateWish(id);
 
+        if (persDateWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("success", 201)
+                            .withPayload(persDateWish.get())
+                            .build()
+                    )
+                    .build();
+        }
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("Get date wish details", 200)
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
+                        .withMessage("Cant find Wish.")
                         .build()
                 )
                 .build();

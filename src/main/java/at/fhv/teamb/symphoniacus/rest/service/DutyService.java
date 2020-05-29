@@ -101,6 +101,7 @@ public class DutyService {
                 new SeriesOfPerformancesDto.SeriesOfPerformancesDtoBuilder(
                         duty.getEntity().getSeriesOfPerformances().getSeriesOfPerformancesId()
                 )
+                .withDescription(duty.getEntity().getSeriesOfPerformances().getDescription())
                 .withMusicalPieces(musicalPieces)
                 .build();
 
