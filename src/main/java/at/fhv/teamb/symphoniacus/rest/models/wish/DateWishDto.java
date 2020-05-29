@@ -1,6 +1,6 @@
 package at.fhv.teamb.symphoniacus.rest.models.wish;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Model class for {@link DateWishDto}.
@@ -8,27 +8,29 @@ import java.time.LocalDateTime;
  * @author Tobias Moser
  */
 public class DateWishDto {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDate start;
+    private LocalDate end;
 
-    public DateWishDto(LocalDateTime start, LocalDateTime end) {
+    public DateWishDto() {}
+
+    public DateWishDto(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(LocalDate end) {
         this.end = end;
     }
 
-    public LocalDateTime getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public LocalDateTime getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 }

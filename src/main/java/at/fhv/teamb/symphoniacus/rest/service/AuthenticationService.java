@@ -14,6 +14,7 @@ import com.nimbusds.jwt.SignedJWT;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Singleton;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import java.util.Optional;
  *
  * @author Tobias Moser
  */
+@Singleton
 public class AuthenticationService {
     private static final Logger LOG = LogManager.getLogger(AuthenticationService.class);
     private String key = "TOwI2UkozlMlJarvxQWoNlXXcWiE5T49iAJ3fD5LkiLRK9smDOA5Svoj4l"

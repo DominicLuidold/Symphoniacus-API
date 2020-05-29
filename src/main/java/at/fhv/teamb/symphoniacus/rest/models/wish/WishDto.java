@@ -14,6 +14,8 @@ public class WishDto<T> {
     private T details;
 
 
+    public WishDto(){}
+
     public WishDto(
                  Integer wishId,
                  WishType wishType,

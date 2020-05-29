@@ -6,6 +6,7 @@ import at.fhv.teamb.symphoniacus.rest.models.wish.DateWishDto;
 import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
 import at.fhv.teamb.symphoniacus.rest.service.DateWishService;
 
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,6 +29,7 @@ import java.util.Set;
  * @author Tobias Moser
  */
 @Path("/datewishes")
+@Singleton
 public class DateWishApi {
     DateWishService dateWishService = new DateWishService();
 

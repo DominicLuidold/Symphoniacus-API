@@ -10,6 +10,7 @@ import at.fhv.teamb.symphoniacus.persistence.model.interfaces.IMusicalPieceEntit
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Singleton;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +21,7 @@ import java.util.Set;
  * @author Valentin Goronjic
  * @author Tobias Moser
  */
+@Singleton
 public class DutyService {
 
     private DutyManager dutyManager = new DutyManager();
