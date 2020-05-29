@@ -43,33 +43,7 @@ public class DutyService {
      * @return all Duties of the user
      */
     public Set<DutyDto> getAllDuties(Integer userId) {
-        System.out.println("asdf");
         return this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
-        /*
-        Set<DutyDto> duties = new HashSet<>();
-
-        MusicianManager musicianManager = new MusicianManager();
-
-        Optional<Musician> musician;
-
-        try {
-            musician = musicianManager.loadMusician(userId);
-        } catch (Exception e) {
-            return null;
-        }
-
-        if (musician.isPresent()) {
-            for (IDutyPositionEntity dp : musician.get().getAssignedDutyPositions()) {
-                Optional<Duty> duty = new DutyManager().loadDutyDetails(dp.getDuty().getDutyId());
-                if (duty.isPresent()) {
-                    duties.add(dutyToDto(duty.get()));
-                }
-            }
-            return duties;
-        }
-
-        return null;
-        */
     }
 
     private DutyDto dutyToDto(Duty duty) {
