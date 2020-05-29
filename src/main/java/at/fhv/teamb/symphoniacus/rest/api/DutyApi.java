@@ -9,6 +9,7 @@ import at.fhv.teamb.symphoniacus.rest.service.DutyService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,6 +32,7 @@ import java.util.Set;
  * @author Valentin Goronjic
  * @author Tobias Moser
  */
+@Singleton
 @Path("/duties")
 public class DutyApi {
     private static final Logger LOG = LogManager.getLogger(DutyApi.class);

@@ -7,17 +7,23 @@ import at.fhv.teamb.symphoniacus.rest.models.wish.WishType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDateTime;
+import javax.inject.Singleton;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Singleton
 public class DateWishService {
     private static final Logger LOG = LogManager.getLogger(DateWishService.class);
 
     //only for testing
     Set<WishDto<DateWishDto>> dateWishes = new HashSet<>();
+
+    public DateWishService() {
+        LOG.debug("Hello new Service ?!?!?!?");
+    }
 
 
     /**
@@ -30,8 +36,8 @@ public class DateWishService {
                 .withTarget(WishTargetType.DATE)
                 .withStatus("APPROVED")
                 .withReason("I want to break free")
-                .withDetails(new DateWishDto(LocalDateTime.now(),
-                        LocalDateTime.of(3000, Month.APRIL, 1, 12, 30)))
+                .withDetails(new DateWishDto(LocalDate.now(),
+                        LocalDate.of(3000, Month.APRIL, 1)))
                 .build();
 
         WishDto<DateWishDto> wish2 = new WishDto.WishBuilder<DateWishDto>()
@@ -40,8 +46,8 @@ public class DateWishService {
                 .withTarget(WishTargetType.DATE)
                 .withStatus("REJECTED")
                 .withReason("I dont want to break free")
-                .withDetails(new DateWishDto(LocalDateTime.now(),
-                        LocalDateTime.of(4000, Month.DECEMBER, 8, 0, 0)))
+                .withDetails(new DateWishDto(LocalDate.now(),
+                        LocalDate.of(4000, Month.DECEMBER, 8)))
                 .build();
 
         this.dateWishes.add(wish1);

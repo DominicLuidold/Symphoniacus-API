@@ -13,6 +13,8 @@ public class DutyWishDto {
     private Map<Integer, String> musicalPieces;
     private Boolean forEntireSop;
 
+    public DutyWishDto() {}
+
     public DutyWishDto(Integer dutyId, Boolean forEntireSop) {
         this.dutyId = dutyId;
         this.forEntireSop = forEntireSop;
