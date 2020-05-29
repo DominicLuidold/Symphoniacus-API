@@ -6,6 +6,7 @@ import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWishDto;
 import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
+import at.fhv.teamb.symphoniacus.rest.service.DutyWishService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +25,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -37,6 +39,7 @@ import java.util.Set;
 public class DutyApi {
     private static final Logger LOG = LogManager.getLogger(DutyApi.class);
     private DutyService dutyService = new DutyService();
+    private DutyWishService dutyWishService = new DutyWishService();
 
     /**
      * All Duties which is the current logged in User is assigned in a position.
@@ -127,11 +130,25 @@ public class DutyApi {
     public Response getAllWishesOfDuty(@PathParam("id") Integer id,
                                              @Context SecurityContext securityContext) {
 
+        Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
+                this.dutyWishService.getAllWishesOfDuty(id);
+
+        if (dutyWishes.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                            .withPayload(dutyWishes.get())
+                            .build()
+                    )
+                    .build();
+        }
+
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("getAllWishesOfDutyID: " + id)
+                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                        .withMessage("Cant find any Duty wishes.")
                         .build()
                 )
                 .build();
