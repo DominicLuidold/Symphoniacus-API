@@ -6,6 +6,8 @@ import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWish;
 import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,7 +33,7 @@ import java.util.Set;
  */
 @Path("/duties")
 public class DutyApi {
-
+    private static final Logger LOG = LogManager.getLogger(DutyApi.class);
     private DutyService dutyService = new DutyService();
 
     /**
@@ -45,12 +47,23 @@ public class DutyApi {
     public Response getAllDuties(@Context SecurityContext securityContext) {
         //To get the current logged in Username
         Principal principal = securityContext.getUserPrincipal();
-        String username = principal.getName();
+        Integer userID = Integer.valueOf(principal.getName());
 
-        Set<DutyDto> duties = this.dutyService.getAllDuties(Integer.valueOf(username));
+        Set<DutyDto> duties = this.dutyService.getAllDuties(userID);
         if (duties == null) {
+            LOG.debug("No Duties found.");
             duties = new HashSet<>();
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Set<DutyDto>>("failure",200)
+                            .withMessage("Duties not Found")
+                            .withPayload(duties)
+                            .build()
+                    )
+                    .build();
         }
+        LOG.debug("Duties found.");
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
@@ -79,19 +92,21 @@ public class DutyApi {
         DutyDto duty = this.dutyService.getDuty(id);
 
         if (duty == null) {
+            LOG.debug("No Duty found.");
             return Response
                 .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("Client Failure", 404)
+                .entity(new CustomResponseBuilder<Void>("failure", 200)
                     .withMessage("Duty not Found")
                     .build()
                 )
                 .build();
         }
+        LOG.debug("Duty found.");
         return Response
             .status(Response.Status.OK)
             .type("text/json")
-            .entity(new CustomResponseBuilder<DutyDto>("success",200)
+            .entity(new CustomResponseBuilder<DutyDto>("success",201)
                 .withPayload(duty)
                 .build()
             )

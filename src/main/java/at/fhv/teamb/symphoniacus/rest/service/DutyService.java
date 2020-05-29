@@ -7,6 +7,8 @@ import at.fhv.teamb.symphoniacus.application.dto.MusicalPieceDto;
 import at.fhv.teamb.symphoniacus.application.dto.SeriesOfPerformancesDto;
 import at.fhv.teamb.symphoniacus.domain.Duty;
 import at.fhv.teamb.symphoniacus.persistence.model.interfaces.IMusicalPieceEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -16,10 +18,12 @@ import java.util.Set;
  * Service implementation for {@link DutyDto}.
  *
  * @author Valentin Goronjic
+ * @author Tobias Moser
  */
 public class DutyService {
 
     private DutyManager dutyManager = new DutyManager();
+    private static final Logger LOG = LogManager.getLogger(DutyService.class);
 
     /**
      * Returns a duty, currently only id, with this id.
@@ -43,8 +47,15 @@ public class DutyService {
      * @return all Duties of the user
      */
     public Set<DutyDto> getAllDuties(Integer userId) {
-        System.out.println("asdf");
-        return this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
+        Set<DutyDto> duties = null;
+        try {
+            duties = this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+
+        return duties;
+
         /*
         Set<DutyDto> duties = new HashSet<>();
 

@@ -5,18 +5,19 @@ import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.models.wish.DateWish;
 import at.fhv.teamb.symphoniacus.rest.models.wish.Wish;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import java.security.Principal;
 
 /**
  * API class for {@link DateWish}.
@@ -33,6 +34,11 @@ public class DateWishApi {
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllWishesOfUser(@Context SecurityContext securityContext) {
+        //To get the current logged in Username
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
+
+
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")

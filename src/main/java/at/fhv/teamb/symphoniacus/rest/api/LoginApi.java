@@ -7,19 +7,21 @@ import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
 import at.fhv.teamb.symphoniacus.rest.models.JwToken;
 import at.fhv.teamb.symphoniacus.rest.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 
 @Path("/login")
 public class LoginApi {
-
+    private static final Logger LOG = LogManager.getLogger(LoginApi.class);
     private AuthenticationService authenticationService = new AuthenticationService();
 
     /**
@@ -43,18 +45,19 @@ public class LoginApi {
             // Return the token on the response
             CustomResponse<JwToken> tokeResponse =
                     new CustomResponseBuilder<JwToken>("success", 200)
-                    .withPayload(new JwToken(token))
-                    .build();
+                            .withPayload(new JwToken(token))
+                            .build();
 
 
             return Response.ok(tokeResponse).build();
 
         } catch (Exception e) {
+            LOG.error(e);
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
                             "Client Failure", 401
                     ).withMessage("The provided login credentials are invalid")
-                    .build();
+                            .build();
 
             return Response
                     .status(Response.Status.FORBIDDEN)
@@ -66,7 +69,7 @@ public class LoginApi {
 
 
     /**
-     *  Authenticate the user against the Database.
+     * Authenticate the user against the Database.
      *
      * @return a LoginUserDto of the user if the given Parameters are valid.
      */
@@ -74,8 +77,10 @@ public class LoginApi {
         Optional<LoginUserDto> loginUser = this.authenticationService.login(username, password);
 
         if (loginUser.isEmpty()) {
+            LOG.warn("Cant authenticate User {}", username);
             throw new Exception();
         } else {
+            LOG.debug("Authenticate User {}", username);
             return loginUser.get();
         }
     }
@@ -87,6 +92,7 @@ public class LoginApi {
      * @return String representation of a JWT
      */
     private String issueToken(LoginUserDto user) throws JOSEException {
+        LOG.debug("Issue Token for User {}", user.getUserShortcut());
         return this.authenticationService.issueToken(user);
     }
 }

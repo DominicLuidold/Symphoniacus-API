@@ -11,6 +11,8 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -22,6 +24,7 @@ import java.util.Optional;
  * @author Tobias Moser
  */
 public class AuthenticationService {
+    private static final Logger LOG = LogManager.getLogger(AuthenticationService.class);
     private String key = "TOwI2UkozlMlJarvxQWoNlXXcWiE5T49iAJ3fD5LkiLRK9smDOA5Svoj4l"
             + "WeNG57YKwjHAHp3jijuTkpLoYcNjI6wiwPXhtN04gFkeT10";
 
@@ -36,7 +39,7 @@ public class AuthenticationService {
                 .withUserShortcut(username)
                 .withPassword(password)
                 .build();
-
+        LOG.debug("Login try with User: {}", username);
         return loginManager.login(dto);
     }
 
@@ -62,6 +65,7 @@ public class AuthenticationService {
         JWSSigner signer = new MACSigner(key);
         signedJwt.sign(signer);
 
+        LOG.debug("Token for User: {} generated.", user.getUserShortcut());
         return signedJwt.serialize();
     }
 
@@ -88,7 +92,8 @@ public class AuthenticationService {
                 return Optional.of(signedJwt);
             }
         } catch (ParseException | JOSEException e) {
-            e.printStackTrace();
+            LOG.debug("Verification Failed");
+            LOG.warn(e);
         }
 
         return Optional.empty();
