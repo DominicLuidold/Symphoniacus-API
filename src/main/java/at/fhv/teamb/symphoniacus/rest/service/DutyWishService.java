@@ -2,6 +2,7 @@ package at.fhv.teamb.symphoniacus.rest.service;
 
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DutyWishDto;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishStatus;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishTargetType;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishType;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +34,7 @@ public class DutyWishService {
                 .withWishId(1)
                 .withWishType(WishType.NEGATIVE)
                 .withTarget(WishTargetType.DUTY)
-                .withStatus("APPROVED")
+                .withStatus(WishStatus.APPROVED)
                 .withReason("I want to break free, i want to break free !!")
                 .withDetails(dutywish)
                 .build();
@@ -58,7 +59,7 @@ public class DutyWishService {
                 .withWishId(1)
                 .withWishType(WishType.NEGATIVE)
                 .withTarget(WishTargetType.DUTY)
-                .withStatus("APPROVED")
+                .withStatus(WishStatus.APPROVED)
                 .withReason("I want to break free, i want to break free !!")
                 .withDetails(dutywish)
                 .build();
