@@ -239,15 +239,13 @@ public class DutyApi {
      * Create one specific wish of a specific duty.
      *
      * @param dutyId of the given duty.
-     * @param wishId of the requested duty.
      */
     @POST
     @Secured
-    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
+    @Path("/{d_id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createDutyWish(@PathParam("d_id") Integer dutyId,
-                                      @PathParam("w_id") Integer wishId,
                                       WishDto<DutyWishDto> dutyWish,
                                       @Context SecurityContext securityContext) {
 
