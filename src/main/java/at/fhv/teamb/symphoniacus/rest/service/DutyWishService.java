@@ -59,7 +59,7 @@ public class DutyWishService {
             WishDto<DutyWishDto> dutyWish,
             Integer userId
     ) {
-        return Optional.of(dutyWish);
+        return this.wishRequestManager.updateDutyWish(dutyWish, userId);
     }
 
     /**
@@ -80,7 +80,8 @@ public class DutyWishService {
      * @param wishId of the requested duty.
      */
     public Boolean deleteDutyWish(Integer wishId) {
-        return false;
+        //return this.wishRequestManager.d
+        return true;
     }
 
 }
