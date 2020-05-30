@@ -122,19 +122,21 @@ public class DutyApi {
     /**
      * Get all wishes of a given duty ID.
      *
-     * @param id of the Duty.
+     * @param dutyId of the Duty.
      */
     @GET
     @Secured
     @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllDutyWishes(
-            @PathParam("id") Integer id,
+            @PathParam("id") Integer dutyId,
             @Context SecurityContext securityContext
     ) {
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
 
         Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
-                this.dutyWishService.getAllDutyWishes(id);
+                this.dutyWishService.getAllDutyWishes(dutyId, userID);
 
         if (dutyWishes.isPresent()) {
             return Response
@@ -216,9 +218,11 @@ public class DutyApi {
             WishDto<DutyWishDto> dutyWish,
             @Context SecurityContext securityContext
     ) {
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
 
         Optional<WishDto<DutyWishDto>> updatedWish =
-                this.dutyWishService.updateDutyWish(dutyWish);
+                this.dutyWishService.updateDutyWish(dutyWish, userID);
 
         if (updatedWish.isPresent()) {
             return Response
@@ -257,8 +261,11 @@ public class DutyApi {
             @Context SecurityContext securityContext
     ) {
 
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
+
         Optional<WishDto<DutyWishDto>> newWish =
-                this.dutyWishService.createDutyWish(dutyWish);
+                this.dutyWishService.createDutyWish(dutyWish, userID);
 
         if (newWish.isPresent()) {
             return Response
