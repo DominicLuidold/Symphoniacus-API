@@ -1,9 +1,9 @@
 package at.fhv.teamb.symphoniacus.rest.service;
 
-import at.fhv.teamb.symphoniacus.rest.models.wish.DateWishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishTargetType;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishType;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DateWishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishTargetType;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,7 +59,7 @@ public class DateWishService {
     /**
      * Add a new date wish.
      */
-    public Optional<WishDto<DateWishDto>> addNewDateWish(WishDto<DateWishDto> datewish) {
+    public Optional<WishDto<DateWishDto>> addNewDateWish(WishDto<DateWishDto> datewish, Integer userId) {
         WishDto<DateWishDto> newWish = new WishDto.WishBuilder<DateWishDto>()
                 .withWishId(69)
                 .withWishType(datewish.getWishType())
@@ -76,10 +76,24 @@ public class DateWishService {
     }
 
     /**
-     * Update data of a existing date wish.
+     * Get the details of a date wish.
      */
-    public Optional<WishDto<DateWishDto>> detailsDateWish(Integer wishID) {
-
+    public Optional<WishDto<DateWishDto>> getDateWishDetails(Integer wishID) {
         return Optional.empty();
     }
+
+    /**
+     * Update data of a existing date wish.
+     */
+    public Optional<WishDto<DateWishDto>> updateDateWishDetails(WishDto<DateWishDto> datewish) {
+        return Optional.empty();
+    }
+
+    /**
+     * Delete a date wish of the given ID.
+     */
+    public Boolean deleteWish(Integer wishId) {
+        return false;
+    }
+
 }

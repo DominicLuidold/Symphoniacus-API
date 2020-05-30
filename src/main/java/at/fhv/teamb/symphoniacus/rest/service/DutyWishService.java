@@ -1,9 +1,9 @@
 package at.fhv.teamb.symphoniacus.rest.service;
 
-import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishTargetType;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishType;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DutyWishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishTargetType;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,12 @@ public class DutyWishService {
 
     Set<WishDto<DutyWishDto>> dutyWishes = new HashSet<>();
 
-    public Optional<Set<WishDto<DutyWishDto>>> getAllWishesOfDuty(Integer dutyId) {
+    /**
+     * Get all wishes of a given duty ID.
+     *
+     * @param dutyId of the Duty.
+     */
+    public Optional<Set<WishDto<DutyWishDto>>> getAllDutyWishes(Integer dutyId) {
         DutyWishDto dutywish = new DutyWishDto(1, false);
         dutywish.addMusicalPiece(1, "Cavalleria rusticana");
 
@@ -35,4 +40,54 @@ public class DutyWishService {
         return Optional.of(dutyWishes);
 
     }
+
+    /**
+     * Get one specific wish of a specific duty.
+     *
+     * @param dutyId of the given duty.
+     */
+    public Optional<WishDto<DutyWishDto>> getOneDutyWish(Integer dutyId) {
+        DutyWishDto dutywish = new DutyWishDto(1, false);
+        dutywish.addMusicalPiece(1, "Cavalleria rusticana");
+
+        WishDto<DutyWishDto> wish = new WishDto.WishBuilder<DutyWishDto>()
+                .withWishId(1)
+                .withWishType(WishType.NEGATIVE)
+                .withTarget(WishTargetType.DUTY)
+                .withStatus("APPROVED")
+                .withReason("I want to break free, i want to break free !!")
+                .withDetails(dutywish)
+                .build();
+
+        return Optional.of(wish);
+    }
+
+    /**
+     * Update one specific wish of a specific duty.
+     *
+     * @param dutyWish updated duty wish
+     */
+    public Optional<WishDto<DutyWishDto>> updateDutyWish(WishDto<DutyWishDto> dutyWish) {
+        return Optional.of(dutyWish);
+    }
+
+    /**
+     * Create one wish of a specific duty.
+     *
+     * @param newWish new wish to persist.
+     */
+    public Optional<WishDto<DutyWishDto>> createDutyWish(WishDto<DutyWishDto> newWish) {
+        dutyWishes.add(newWish);
+        return Optional.of(newWish);
+    }
+
+    /**
+     * Delete one specific wish of a specific duty.
+     *
+     * @param wishId of the requested duty.
+     */
+    public Boolean deleteDutyWish(Integer wishId) {
+        return false;
+    }
+
 }

@@ -1,9 +1,9 @@
 package at.fhv.teamb.symphoniacus.rest.api;
 
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DateWishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
-import at.fhv.teamb.symphoniacus.rest.models.wish.DateWishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
 import at.fhv.teamb.symphoniacus.rest.service.DateWishService;
 
 import javax.inject.Singleton;
@@ -79,7 +79,10 @@ public class DateWishApi {
             @Context SecurityContext securityContext,
             WishDto<DateWishDto> dateWish
     ) {
-        Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.addNewDateWish(dateWish);
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
+        Optional<WishDto<DateWishDto>> persDateWish =
+                this.dateWishService.addNewDateWish(dateWish, userID);
 
         if (persDateWish.isPresent()) {
             return Response
@@ -111,7 +114,7 @@ public class DateWishApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWishDetails(@PathParam("id") Integer id,
                                           @Context SecurityContext securityContext) {
-        Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.detailsDateWish(id);
+        Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.getDateWishDetails(id);
 
         if (persDateWish.isPresent()) {
             return Response
@@ -141,13 +144,28 @@ public class DateWishApi {
     @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateWishDetails(@PathParam("id") Integer id, String dateWish,
+    public Response updateWishDetails(@PathParam("id") Integer id, WishDto<DateWishDto> dateWish,
                                              @Context SecurityContext securityContext) {
 
+        Optional<WishDto<DateWishDto>> persDateWish =
+                this.dateWishService.updateDateWishDetails(dateWish);
+
+
+        if (persDateWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("success", 200)
+                            .withPayload(persDateWish.get())
+                            .build()
+                    )
+                    .build();
+        }
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("updateWishDetails", 200)
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
+                        .withMessage("Cant find Wish.")
                         .build()
                 )
                 .build();
@@ -162,10 +180,23 @@ public class DateWishApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteWish(@PathParam("id") Integer id,
                                           @Context SecurityContext securityContext) {
+
+        Boolean deleted = this.dateWishService.deleteWish(id);
+
+        if (deleted) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("success", 204)
+                            .build()
+                    )
+                    .build();
+        }
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("delete date Wish", 200)
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
+                        .withMessage("Cant find Wish.")
                         .build()
                 )
                 .build();
