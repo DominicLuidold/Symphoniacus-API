@@ -112,8 +112,10 @@ public class DateWishApi {
     @Secured
     @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getWishDetails(@PathParam("id") Integer id,
-                                          @Context SecurityContext securityContext) {
+    public Response getWishDetails(
+            @PathParam("id") Integer id,
+            @Context SecurityContext securityContext
+    ) {
         Optional<WishDto<DateWishDto>> persDateWish = this.dateWishService.getDateWishDetails(id);
 
         if (persDateWish.isPresent()) {
@@ -144,8 +146,11 @@ public class DateWishApi {
     @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateWishDetails(@PathParam("id") Integer id, WishDto<DateWishDto> dateWish,
-                                             @Context SecurityContext securityContext) {
+    public Response updateWishDetails(
+            @PathParam("id") Integer id,
+            WishDto<DateWishDto> dateWish,
+            @Context SecurityContext securityContext
+    ) {
 
         Optional<WishDto<DateWishDto>> persDateWish =
                 this.dateWishService.updateDateWishDetails(dateWish);
@@ -178,8 +183,10 @@ public class DateWishApi {
     @Secured
     @Path("/{id  : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteWish(@PathParam("id") Integer id,
-                                          @Context SecurityContext securityContext) {
+    public Response deleteWish(
+            @PathParam("id") Integer id,
+            @Context SecurityContext securityContext
+    ) {
 
         Boolean deleted = this.dateWishService.deleteWish(id);
 

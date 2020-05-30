@@ -62,7 +62,7 @@ public class DutyApi {
             return Response
                     .status(Response.Status.OK)
                     .type("text/json")
-                    .entity(new CustomResponseBuilder<Set<DutyDto>>("failure",200)
+                    .entity(new CustomResponseBuilder<Set<DutyDto>>("failure", 200)
                             .withMessage("Duties not Found")
                             .withPayload(duties)
                             .build()
@@ -73,7 +73,7 @@ public class DutyApi {
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Set<DutyDto>>("success",200)
+                .entity(new CustomResponseBuilder<Set<DutyDto>>("success", 200)
                         .withPayload(duties)
                         .build()
                 )
@@ -100,23 +100,23 @@ public class DutyApi {
         if (duty == null) {
             LOG.debug("No Duty found.");
             return Response
-                .status(Response.Status.BAD_REQUEST)
-                .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("failure", 200)
-                    .withMessage("Duty not Found")
-                    .build()
-                )
-                .build();
+                    .status(Response.Status.BAD_REQUEST)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Void>("failure", 200)
+                            .withMessage("Duty not Found")
+                            .build()
+                    )
+                    .build();
         }
         LOG.debug("Duty found.");
         return Response
-            .status(Response.Status.OK)
-            .type("text/json")
-            .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                .withPayload(duty)
-                .build()
-            )
-            .build();
+                .status(Response.Status.OK)
+                .type("text/json")
+                .entity(new CustomResponseBuilder<DutyDto>("success", 200)
+                        .withPayload(duty)
+                        .build()
+                )
+                .build();
     }
 
     /**
@@ -128,8 +128,10 @@ public class DutyApi {
     @Secured
     @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDutyWishes(@PathParam("id") Integer id,
-                                             @Context SecurityContext securityContext) {
+    public Response getAllDutyWishes(
+            @PathParam("id") Integer id,
+            @Context SecurityContext securityContext
+    ) {
 
         Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
                 this.dutyWishService.getAllDutyWishes(id);
@@ -166,9 +168,11 @@ public class DutyApi {
     @Secured
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOneDutyWish(@PathParam("d_id") Integer dutyId,
-                                             @PathParam("w_id") Integer wishId,
-                                             @Context SecurityContext securityContext) {
+    public Response getOneDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            @Context SecurityContext securityContext
+    ) {
 
         Optional<WishDto<DutyWishDto>> dutyWish =
                 this.dutyWishService.getOneDutyWish(dutyId);
@@ -206,10 +210,12 @@ public class DutyApi {
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateDutyWish(@PathParam("d_id") Integer dutyId,
-                                       @PathParam("w_id") Integer wishId,
-                                       WishDto<DutyWishDto> dutyWish,
-                                       @Context SecurityContext securityContext) {
+    public Response updateDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            WishDto<DutyWishDto> dutyWish,
+            @Context SecurityContext securityContext
+    ) {
 
         Optional<WishDto<DutyWishDto>> updatedWish =
                 this.dutyWishService.updateDutyWish(dutyWish);
@@ -245,9 +251,11 @@ public class DutyApi {
     @Path("/{d_id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createDutyWish(@PathParam("d_id") Integer dutyId,
-                                      WishDto<DutyWishDto> dutyWish,
-                                      @Context SecurityContext securityContext) {
+    public Response createDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            WishDto<DutyWishDto> dutyWish,
+            @Context SecurityContext securityContext
+    ) {
 
         Optional<WishDto<DutyWishDto>> newWish =
                 this.dutyWishService.createDutyWish(dutyWish);
@@ -283,9 +291,11 @@ public class DutyApi {
     @Secured
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteWisheOfDuty(@PathParam("d_id") Integer dutyId,
-                                      @PathParam("w_id") Integer wishId,
-                                      @Context SecurityContext securityContext) {
+    public Response deleteWisheOfDuty(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            @Context SecurityContext securityContext
+    ) {
 
         Boolean deleted = this.dutyWishService.deleteDutyWish(dutyId);
 
