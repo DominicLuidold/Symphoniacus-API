@@ -2,6 +2,7 @@ package at.fhv.teamb.symphoniacus.rest.service;
 
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DateWishDto;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishStatus;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishTargetType;
 import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishType;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +35,7 @@ public class DateWishService {
                 .withWishId(1)
                 .withWishType(WishType.NEGATIVE)
                 .withTarget(WishTargetType.DATE)
-                .withStatus("APPROVED")
+                .withStatus(WishStatus.APPROVED)
                 .withReason("I want to break free")
                 .withDetails(new DateWishDto(LocalDate.now(),
                         LocalDate.of(3000, Month.APRIL, 1)))
@@ -44,7 +45,7 @@ public class DateWishService {
                 .withWishId(2)
                 .withWishType(WishType.NEGATIVE)
                 .withTarget(WishTargetType.DATE)
-                .withStatus("REJECTED")
+                .withStatus(WishStatus.APPROVED)
                 .withReason("I dont want to break free")
                 .withDetails(new DateWishDto(LocalDate.now(),
                         LocalDate.of(4000, Month.DECEMBER, 8)))
