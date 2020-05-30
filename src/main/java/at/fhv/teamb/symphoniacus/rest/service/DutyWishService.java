@@ -27,6 +27,8 @@ public class DutyWishService {
         DutyWishDto dutywish = new DutyWishDto(1, false);
         dutywish.addMusicalPiece(1, "Cavalleria rusticana");
 
+
+
         WishDto<DutyWishDto> wish = new WishDto.WishBuilder<DutyWishDto>()
                 .withWishId(1)
                 .withWishType(WishType.NEGATIVE)
@@ -47,8 +49,10 @@ public class DutyWishService {
      * @param dutyId of the given duty.
      */
     public Optional<WishDto<DutyWishDto>> getOneDutyWish(Integer dutyId) {
+
         DutyWishDto dutywish = new DutyWishDto(1, false);
         dutywish.addMusicalPiece(1, "Cavalleria rusticana");
+
 
         WishDto<DutyWishDto> wish = new WishDto.WishBuilder<DutyWishDto>()
                 .withWishId(1)
