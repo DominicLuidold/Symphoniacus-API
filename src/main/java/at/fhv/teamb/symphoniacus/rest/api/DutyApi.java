@@ -1,11 +1,13 @@
 package at.fhv.teamb.symphoniacus.rest.api;
 
 import at.fhv.teamb.symphoniacus.application.dto.DutyDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DateWishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.DutyWishDto;
+import at.fhv.teamb.symphoniacus.application.dto.wishdtos.WishDto;
 import at.fhv.teamb.symphoniacus.rest.configuration.jwt.Secured;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
-import at.fhv.teamb.symphoniacus.rest.models.wish.DutyWishDto;
-import at.fhv.teamb.symphoniacus.rest.models.wish.WishDto;
 import at.fhv.teamb.symphoniacus.rest.service.DutyService;
+import at.fhv.teamb.symphoniacus.rest.service.DutyWishService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -37,6 +40,7 @@ import java.util.Set;
 public class DutyApi {
     private static final Logger LOG = LogManager.getLogger(DutyApi.class);
     private DutyService dutyService = new DutyService();
+    private DutyWishService dutyWishService = new DutyWishService();
 
     /**
      * All Duties which is the current logged in User is assigned in a position.
@@ -58,7 +62,7 @@ public class DutyApi {
             return Response
                     .status(Response.Status.OK)
                     .type("text/json")
-                    .entity(new CustomResponseBuilder<Set<DutyDto>>("failure",200)
+                    .entity(new CustomResponseBuilder<Set<DutyDto>>("failure", 200)
                             .withMessage("Duties not Found")
                             .withPayload(duties)
                             .build()
@@ -69,7 +73,7 @@ public class DutyApi {
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Set<DutyDto>>("success",200)
+                .entity(new CustomResponseBuilder<Set<DutyDto>>("success", 200)
                         .withPayload(duties)
                         .build()
                 )
@@ -96,23 +100,23 @@ public class DutyApi {
         if (duty == null) {
             LOG.debug("No Duty found.");
             return Response
-                .status(Response.Status.BAD_REQUEST)
-                .type("text/json")
-                .entity(new CustomResponseBuilder<Void>("failure", 200)
-                    .withMessage("Duty not Found")
-                    .build()
-                )
-                .build();
+                    .status(Response.Status.BAD_REQUEST)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Void>("failure", 200)
+                            .withMessage("Duty not Found")
+                            .build()
+                    )
+                    .build();
         }
         LOG.debug("Duty found.");
         return Response
-            .status(Response.Status.OK)
-            .type("text/json")
-            .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                .withPayload(duty)
-                .build()
-            )
-            .build();
+                .status(Response.Status.OK)
+                .type("text/json")
+                .entity(new CustomResponseBuilder<DutyDto>("success", 200)
+                        .withPayload(duty)
+                        .build()
+                )
+                .build();
     }
 
     /**
@@ -124,14 +128,30 @@ public class DutyApi {
     @Secured
     @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllWishesOfDuty(@PathParam("id") Integer id,
-                                             @Context SecurityContext securityContext) {
+    public Response getAllDutyWishes(
+            @PathParam("id") Integer id,
+            @Context SecurityContext securityContext
+    ) {
+
+        Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
+                this.dutyWishService.getAllDutyWishes(id);
+
+        if (dutyWishes.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                            .withPayload(dutyWishes.get())
+                            .build()
+                    )
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("getAllWishesOfDutyID: " + id)
+                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                        .withMessage("Cant find any Duty wishes.")
                         .build()
                 )
                 .build();
@@ -148,18 +168,35 @@ public class DutyApi {
     @Secured
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOneWisheOfDuty(@PathParam("d_id") Integer dutyId,
-                                             @PathParam("w_id") Integer wishId,
-                                             @Context SecurityContext securityContext) {
+    public Response getOneDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            @Context SecurityContext securityContext
+    ) {
+
+        Optional<WishDto<DutyWishDto>> dutyWish =
+                this.dutyWishService.getOneDutyWish(dutyId);
+
+        if (dutyWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("success", 200)
+                            .withPayload(dutyWish.get())
+                            .build()
+                    )
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("get one wish with id: " + wishId + " and duty id: " + dutyId)
+                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                        .withMessage("Cant find Duty wish.")
                         .build()
                 )
                 .build();
+
     }
 
     /**
@@ -173,16 +210,32 @@ public class DutyApi {
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateWisheOfDuty(@PathParam("d_id") Integer dutyId,
-                                       @PathParam("w_id") Integer wishId,
-                                       WishDto<DutyWishDto> dutyWish,
-                                       @Context SecurityContext securityContext) {
+    public Response updateDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            WishDto<DutyWishDto> dutyWish,
+            @Context SecurityContext securityContext
+    ) {
+
+        Optional<WishDto<DutyWishDto>> updatedWish =
+                this.dutyWishService.updateDutyWish(dutyWish);
+
+        if (updatedWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("success", 200)
+                            .withPayload(updatedWish.get())
+                            .build()
+                    )
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("update one wish with id: " + wishId + " duty id: " + dutyId)
+                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
+                        .withMessage("Cant find Duty wish.")
                         .build()
                 )
                 .build();
@@ -192,23 +245,37 @@ public class DutyApi {
      * Create one specific wish of a specific duty.
      *
      * @param dutyId of the given duty.
-     * @param wishId of the requested duty.
      */
     @POST
     @Secured
-    @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
+    @Path("/{d_id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createWisheOfDuty(@PathParam("d_id") Integer dutyId,
-                                      @PathParam("w_id") Integer wishId,
-                                      WishDto<DutyWishDto> dutyWish,
-                                      @Context SecurityContext securityContext) {
+    public Response createDutyWish(
+            @PathParam("d_id") Integer dutyId,
+            WishDto<DutyWishDto> dutyWish,
+            @Context SecurityContext securityContext
+    ) {
+
+        Optional<WishDto<DutyWishDto>> newWish =
+                this.dutyWishService.createDutyWish(dutyWish);
+
+        if (newWish.isPresent()) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("success", 201)
+                            .withPayload(newWish.get())
+                            .build()
+                    )
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("Create one wish with id: " + wishId + " duty id: " + dutyId)
+                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("failure", 400)
+                        .withMessage("Cant save Duty wish.")
                         .build()
                 )
                 .build();
@@ -224,15 +291,28 @@ public class DutyApi {
     @Secured
     @Path("/{d_id : \\d+}/wishes/{w_id : \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteWisheOfDuty(@PathParam("d_id") Integer dutyId,
-                                      @PathParam("w_id") Integer wishId,
-                                      @Context SecurityContext securityContext) {
+    public Response deleteWisheOfDuty(
+            @PathParam("d_id") Integer dutyId,
+            @PathParam("w_id") Integer wishId,
+            @Context SecurityContext securityContext
+    ) {
 
+        Boolean deleted = this.dutyWishService.deleteDutyWish(dutyId);
+
+        if (deleted) {
+            return Response
+                    .status(Response.Status.OK)
+                    .type("text/json")
+                    .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("success", 204)
+                            .build()
+                    )
+                    .build();
+        }
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<DutyDto>("success",200)
-                        .withMessage("delete one wish with id: " + wishId + " duty id: " + dutyId)
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
+                        .withMessage("Cant find Wish.")
                         .build()
                 )
                 .build();
