@@ -59,7 +59,10 @@ public class DateWishService {
     /**
      * Add a new date wish.
      */
-    public Optional<WishDto<DateWishDto>> addNewDateWish(WishDto<DateWishDto> datewish, Integer userId) {
+    public Optional<WishDto<DateWishDto>> addNewDateWish(
+            WishDto<DateWishDto> datewish,
+            Integer userId
+    ) {
         WishDto<DateWishDto> newWish = new WishDto.WishBuilder<DateWishDto>()
                 .withWishId(69)
                 .withWishType(datewish.getWishType())
