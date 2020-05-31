@@ -304,7 +304,7 @@ public class DutyApi {
             @Context SecurityContext securityContext
     ) {
 
-        Boolean deleted = this.dutyWishService.deleteDutyWish(dutyId);
+        Boolean deleted = this.dutyWishService.deleteDutyWish(wishId);
 
         if (deleted) {
             return Response
