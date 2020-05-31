@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Singleton;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -55,12 +54,8 @@ public class DutyService {
 
         Set<DutyDto> duties = null;
         try {
-            //duties = this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
+            duties = this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
 
-            duties = new HashSet<>();
-            for (Duty duty : this.dutyManager.findAllInRange(LocalDate.of(1999, 1,1), LocalDate.of(3000, 1,1))) {
-                duties.add(dutyToDto(duty));
-            }
         } catch (Exception e) {
             LOG.error(e);
         }
