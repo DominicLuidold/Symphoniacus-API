@@ -1,8 +1,5 @@
 package at.fhv.teamb.symphoniacus.rest;
 
-import java.io.IOException;
-import java.net.URI;
-
 import at.fhv.teamb.symphoniacus.rest.configuration.jersey.ObjectMapperResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +7,9 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * Main entry class for REST API.
@@ -20,7 +20,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class Main {
 
     private static final Logger LOG = LogManager.getLogger(Main.class);
-    private static final String BASE_URI = "http://0.0.0.0:9005/api/";
+    private static final String BASE_URI = "http://0.0.0.0:9005/";
 
     /**
      * Starts up the REST API.
