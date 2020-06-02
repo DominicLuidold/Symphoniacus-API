@@ -23,8 +23,22 @@ public class DutyWishService {
      *
      * @param dutyId of the Duty.
      */
-    public Optional<Set<WishDto<DutyWishDto>>> getAllDutyWishes(Integer dutyId, Integer userId) {
-        return Optional.of(this.wishRequestManager.getAllDutyWishesForUserAndDuty(userId, dutyId));
+    public Set<WishDto<DutyWishDto>> getAllDutyWishesOfUserAndDuty(
+        Integer dutyId,
+        Integer userId
+    ) {
+        return this.wishRequestManager.getAllDutyWishesForUserAndDuty(userId, dutyId);
+    }
+
+    /**
+     * Get all future duty wishes of user.
+     * @param userId
+     * @return
+     */
+    public Set<WishDto<DutyWishDto>> getAllFutureDutyWishesOfUser(
+        Integer userId
+    ) {
+        return this.wishRequestManager.getAllFutureDutyWishesOfUser(userId);
     }
 
     /**

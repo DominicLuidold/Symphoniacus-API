@@ -128,22 +128,22 @@ public class DutyApi {
     @Secured
     @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDutyWishes(
+    public Response getAllDutyWishesOfUserAndDuty(
             @PathParam("id") Integer dutyId,
             @Context SecurityContext securityContext
     ) {
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
 
-        Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
-                this.dutyWishService.getAllDutyWishes(dutyId, userID);
+        Set<WishDto<DutyWishDto>> dutyWishes =
+                this.dutyWishService.getAllDutyWishesOfUserAndDuty(dutyId, userID);
 
-        if (dutyWishes.isPresent()) {
+        if (dutyWishes.isEmpty()) {
             return Response
                     .status(Response.Status.OK)
                     .type("text/json")
                     .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
-                            .withPayload(dutyWishes.get())
+                            .withPayload(dutyWishes)
                             .build()
                     )
                     .build();
