@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Singleton;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 @Singleton
 public class DutyService {
 
-    private DutyManager dutyManager = new DutyManager();
+    private final DutyManager dutyManager = new DutyManager();
     private static final Logger LOG = LogManager.getLogger(DutyService.class);
 
     /**
@@ -30,10 +31,7 @@ public class DutyService {
     public DutyDto getDuty(Integer id) {
         Optional<DutyDto> duty = new DutyManager().loadDutyDetailsDto(id);
 
-        if (duty.isPresent()) {
-            return duty.get();
-        }
-        return null;
+        return duty.orElse(null);
     }
 
     /**
@@ -43,41 +41,14 @@ public class DutyService {
      * @return all Duties of the user
      */
     public Set<DutyDto> getAllDuties(Integer userId) {
-
-
-
-        Set<DutyDto> duties = null;
+        Set<DutyDto> duties;
         try {
             duties = this.dutyManager.findFutureUnscheduledDutiesForMusician(userId);
 
         } catch (Exception e) {
             LOG.error(e);
+            return new HashSet<>();
         }
         return duties;
-        /*
-        Set<DutyDto> duties = new HashSet<>();
-
-        MusicianManager musicianManager = new MusicianManager();
-
-        Optional<Musician> musician;
-
-        try {
-            musician = musicianManager.loadMusician(userId);
-        } catch (Exception e) {
-            return null;
-        }
-
-        if (musician.isPresent()) {
-            for (IDutyPositionEntity dp : musician.get().getAssignedDutyPositions()) {
-                Optional<Duty> duty = new DutyManager().loadDutyDetails(dp.getDuty().getDutyId());
-                if (duty.isPresent()) {
-                    duties.add(dutyToDto(duty.get()));
-                }
-            }
-            return duties;
-        }
-
-        return null;
-        */
     }
 }
