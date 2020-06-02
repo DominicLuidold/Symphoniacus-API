@@ -51,13 +51,13 @@ public class DutyWishApi {
         );
 
         if (wishes.isEmpty()) {
-            rb.entity(
+            rb = rb.entity(
                 crb
                     .withMessage("Cant find any Duty wishes.")
                     .build()
             );
         } else {
-            rb.entity(
+            rb = rb.entity(
                 crb
                     .withPayload(wishes)
                     .build()
