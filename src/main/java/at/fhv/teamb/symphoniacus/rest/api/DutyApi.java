@@ -95,9 +95,9 @@ public class DutyApi {
         @PathParam("id") Integer id,
         @Context SecurityContext securityContext
     ) {
-        DutyDto duty = this.dutyService.getDuty(id);
+        Optional<DutyDto> duty = this.dutyService.getDuty(id);
 
-        if (duty == null) {
+        if (duty.isEmpty()) {
             LOG.debug("No Duty found.");
             return Response
                 .status(Response.Status.BAD_REQUEST)
@@ -108,12 +108,12 @@ public class DutyApi {
                 )
                 .build();
         }
-        LOG.debug("Duty found.");
+        LOG.debug("Found Duty");
         return Response
             .status(Response.Status.OK)
             .type("text/json")
             .entity(new CustomResponseBuilder<DutyDto>("success", 200)
-                .withPayload(duty)
+                .withPayload(duty.get())
                 .build()
             )
             .build();

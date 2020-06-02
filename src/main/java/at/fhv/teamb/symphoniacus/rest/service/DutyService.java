@@ -28,10 +28,8 @@ public class DutyService {
      * @param id Id of Duty
      * @return DutyDto
      */
-    public DutyDto getDuty(Integer id) {
-        Optional<DutyDto> duty = new DutyManager().loadDutyDetailsDto(id);
-
-        return duty.orElse(null);
+    public Optional<DutyDto> getDuty(Integer id) {
+        return this.dutyManager.loadDutyDetailsDto(id);
     }
 
     /**
