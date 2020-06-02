@@ -24,7 +24,7 @@ public class DutyWishService {
      * @param dutyId of the Duty.
      */
     public Optional<Set<WishDto<DutyWishDto>>> getAllDutyWishes(Integer dutyId, Integer userId) {
-        return Optional.of(this.wishRequestManager.getAllDutyWishesForUser(userId, dutyId));
+        return Optional.of(this.wishRequestManager.getAllDutyWishesForUserAndDuty(userId, dutyId));
     }
 
     /**
