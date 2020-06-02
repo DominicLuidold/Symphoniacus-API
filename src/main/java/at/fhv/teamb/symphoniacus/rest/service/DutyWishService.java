@@ -15,8 +15,8 @@ import java.util.Set;
 
 @Singleton
 public class DutyWishService {
-    private WishRequestManager wishRequestManager = new WishRequestManager();
     private static final Logger LOG = LogManager.getLogger(DutyWishService.class);
+    private WishRequestManager wishRequestManager = new WishRequestManager();
 
     /**
      * Get all wishes of a given duty ID.
@@ -53,13 +53,13 @@ public class DutyWishService {
 
 
         WishDto<DutyWishDto> wish = new WishDto.WishBuilder<DutyWishDto>()
-                .withWishId(1)
-                .withWishType(WishType.NEGATIVE)
-                .withTarget(WishTargetType.DUTY)
-                .withStatus(WishStatus.APPROVED)
-                .withReason("I want to break free, i want to break free !!")
-                .withDetails(dutywish)
-                .build();
+            .withWishId(1)
+            .withWishType(WishType.NEGATIVE)
+            .withTarget(WishTargetType.DUTY)
+            .withStatus(WishStatus.APPROVED)
+            .withReason("I want to break free, i want to break free !!")
+            .withDetails(dutywish)
+            .build();
 
         return Optional.of(wish);
     }
@@ -70,8 +70,8 @@ public class DutyWishService {
      * @param dutyWish updated duty wish
      */
     public Optional<WishDto<DutyWishDto>> updateDutyWish(
-            WishDto<DutyWishDto> dutyWish,
-            Integer userId
+        WishDto<DutyWishDto> dutyWish,
+        Integer userId
     ) {
         return this.wishRequestManager.updateDutyWish(dutyWish, userId);
     }
@@ -82,8 +82,8 @@ public class DutyWishService {
      * @param newWish new wish to persist.
      */
     public Optional<WishDto<DutyWishDto>> createDutyWish(
-            WishDto<DutyWishDto> newWish,
-            Integer userId
+        WishDto<DutyWishDto> newWish,
+        Integer userId
     ) {
         return wishRequestManager.addNewDutyWish(newWish, userId);
     }
