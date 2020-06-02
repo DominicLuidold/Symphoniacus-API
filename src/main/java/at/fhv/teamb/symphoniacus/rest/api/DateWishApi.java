@@ -39,7 +39,7 @@ public class DateWishApi {
     @GET
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllWishesOfUser(@Context SecurityContext securityContext) {
+    public Response getAllDateWishesOfUser(@Context SecurityContext securityContext) {
         //To get the current logged in Username
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
