@@ -37,12 +37,15 @@ public class DutyWishApi {
         Principal principal = securityContext.getUserPrincipal();
         Integer userId = Integer.valueOf(principal.getName());
 
-        Set<WishDto<DutyWishDto>> wishes = this.dutyWishService.getAllFutureDutyWishesOfUser(userId);
+        Set<WishDto<DutyWishDto>> wishes = this.dutyWishService.getAllFutureDutyWishesOfUser(
+            userId
+        );
 
         Response.ResponseBuilder rb = Response
             .status(Response.Status.OK)
             .type("text/json");
-        CustomResponseBuilder crb = new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>(
+        CustomResponseBuilder<Set<WishDto<DutyWishDto>>> crb =
+            new CustomResponseBuilder<>(
             "success",
             200
         );
@@ -50,13 +53,13 @@ public class DutyWishApi {
         if (wishes.isEmpty()) {
             rb.entity(
                 crb
-                    .withPayload(wishes)
+                    .withMessage("Cant find any Duty wishes.")
                     .build()
             );
         } else {
             rb.entity(
                 crb
-                    .withMessage("Cant find any Duty wishes.")
+                    .withPayload(wishes)
                     .build()
             );
         }
