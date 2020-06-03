@@ -259,7 +259,7 @@ public class DutyApi {
     @Path("/{d_id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createDutyWish(
+    public Response addNewDutyWish(
             @PathParam("d_id") Integer dutyId,
             WishDto<DutyWishDto> dutyWish,
             @Context SecurityContext securityContext
@@ -269,7 +269,7 @@ public class DutyApi {
         Integer userID = Integer.valueOf(principal.getName());
 
         Optional<WishDto<DutyWishDto>> newWish =
-                this.dutyWishService.createDutyWish(dutyWish, userID);
+                this.dutyWishService.addNewDutyWish(dutyWish, userID);
 
         if (newWish.isPresent()) {
             return Response

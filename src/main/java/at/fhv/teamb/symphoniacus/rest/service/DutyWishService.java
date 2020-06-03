@@ -81,7 +81,7 @@ public class DutyWishService {
      *
      * @param newWish new wish to persist.
      */
-    public Optional<WishDto<DutyWishDto>> createDutyWish(
+    public Optional<WishDto<DutyWishDto>> addNewDutyWish(
         WishDto<DutyWishDto> newWish,
         Integer userId
     ) {
