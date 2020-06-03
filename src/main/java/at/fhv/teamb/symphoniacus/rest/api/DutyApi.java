@@ -95,9 +95,9 @@ public class DutyApi {
             @PathParam("id") Integer id,
             @Context SecurityContext securityContext
     ) {
-        DutyDto duty = this.dutyService.getDuty(id);
+        Optional<DutyDto> duty = this.dutyService.getDuty(id);
 
-        if (duty == null) {
+        if (duty.isEmpty()) {
             LOG.debug("No Duty found.");
             return Response
                     .status(Response.Status.BAD_REQUEST)
@@ -108,12 +108,12 @@ public class DutyApi {
                     )
                     .build();
         }
-        LOG.debug("Duty found.");
+        LOG.debug("Found Duty");
         return Response
                 .status(Response.Status.OK)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<DutyDto>("success", 200)
-                        .withPayload(duty)
+                        .withPayload(duty.get())
                         .build()
                 )
                 .build();
@@ -128,36 +128,40 @@ public class DutyApi {
     @Secured
     @Path("/{id : \\d+}/wishes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDutyWishes(
+    public Response getAllDutyWishesOfUserAndDuty(
             @PathParam("id") Integer dutyId,
             @Context SecurityContext securityContext
     ) {
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
 
-        Optional<Set<WishDto<DutyWishDto>>> dutyWishes =
-                this.dutyWishService.getAllDutyWishes(dutyId, userID);
+        Set<WishDto<DutyWishDto>> dutyWishes =
+                this.dutyWishService.getAllDutyWishesOfUserAndDuty(dutyId, userID);
 
-        if (dutyWishes.isPresent()) {
-            return Response
-                    .status(Response.Status.OK)
-                    .type("text/json")
-                    .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
-                            .withPayload(dutyWishes.get())
-                            .build()
-                    )
-                    .build();
+        Response.ResponseBuilder rb = Response
+                .status(Response.Status.OK)
+                .type("text/json");
+        CustomResponseBuilder<Set<WishDto<DutyWishDto>>> crb =
+                new CustomResponseBuilder<>("success", 200);
+
+        if (dutyWishes.isEmpty()) {
+            rb = rb
+                    .entity(
+                            crb
+                                    .withMessage("Cant find any Duty wishes.")
+                                    .build()
+                    );
+
         }
 
-        return Response
-                .status(Response.Status.OK)
-                .type("text/json")
-                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
-                        .withMessage("Cant find any Duty wishes.")
-                        .build()
-                )
-                .build();
+        rb = rb
+                .entity(
+                        crb
+                                .withPayload(dutyWishes)
+                                .build()
+                );
 
+        return rb.build();
     }
 
     /**
@@ -281,12 +285,13 @@ public class DutyApi {
         return Response
                 .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("failure", 400)
-                        .withMessage("Cant save Duty wish.")
+                .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("success", 201)
+                        .withPayload(newWish.get())
                         .build()
                 )
                 .build();
     }
+
 
     /**
      * Delete one specific wish of a specific duty.
@@ -319,7 +324,6 @@ public class DutyApi {
                 .status(Response.Status.NOT_FOUND)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
-                        .withMessage("Cant find Wish.")
                         .build()
                 )
                 .build();
