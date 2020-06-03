@@ -1,6 +1,7 @@
-package at.fhv.teamb.symphoniacus.rest.api;
+package at.fhv.teamb.symphoniacus.rest.api.login;
 
 import at.fhv.teamb.symphoniacus.application.dto.LoginUserDto;
+import at.fhv.teamb.symphoniacus.application.type.DomainUserType;
 import at.fhv.teamb.symphoniacus.rest.models.Credentials;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponse;
 import at.fhv.teamb.symphoniacus.rest.models.CustomResponseBuilder;
@@ -52,16 +53,30 @@ public class LoginApi {
 
             return Response.ok(tokeResponse).build();
 
-        } catch (Exception e) {
+        }  catch (WrongDomainUserTypeException e) {
             LOG.error(e);
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
                             "Client Failure", 401
+                    ).withMessage("Only Musician are allowed to login.")
+                            .build();
+
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .type("text/json")
+                    .entity(errorResponse)
+                    .build();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            CustomResponse<Void> errorResponse =
+                    new CustomResponseBuilder<Void>(
+                            "Unauthorized", 403
                     ).withMessage("The provided login credentials are invalid")
                             .build();
 
             return Response
-                    .status(Response.Status.FORBIDDEN)
+                    .status(Response.Status.UNAUTHORIZED)
                     .type("text/json")
                     .entity(errorResponse)
                     .build();
@@ -80,10 +95,14 @@ public class LoginApi {
         if (loginUser.isEmpty()) {
             LOG.warn("Cant authenticate User {}", username);
             throw new Exception();
-        } else {
-            LOG.debug("Authenticate User {}", username);
-            return loginUser.get();
+        } else if (loginUser.isPresent()) {
+            if (loginUser.get().getType() != DomainUserType.DOMAIN_MUSICIAN) {
+                LOG.warn("Cant authenticate User {} User is not a Musician", username);
+                throw new WrongDomainUserTypeException();
+            }
         }
+        LOG.debug("Authenticate User {}", username);
+        return loginUser.get();
     }
 
     /**
