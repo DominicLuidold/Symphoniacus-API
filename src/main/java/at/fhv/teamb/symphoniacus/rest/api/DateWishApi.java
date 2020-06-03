@@ -95,7 +95,7 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
                         .withMessage("Cant save new date wishe.")
@@ -129,7 +129,7 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
                         .withMessage("Cant find Wish.")
@@ -167,7 +167,7 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
                         .withMessage("Cant find Wish.")

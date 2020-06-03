@@ -279,7 +279,7 @@ public class DutyApi {
         }
 
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("failure", 400)
                         .withMessage("Cant save Duty wish.")
@@ -316,7 +316,7 @@ public class DutyApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.NOT_FOUND)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
                         .withMessage("Cant find Wish.")
