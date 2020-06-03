@@ -30,7 +30,7 @@ public class DateWishService {
     /**
      * Get all date wishes of a User.
      */
-    public Set<WishDto<DateWishDto>> getAllDateWishes(Integer userId) {
+    public Set<WishDto<DateWishDto>> getAllDateWishesOfUser(Integer userId) {
         WishDto<DateWishDto> wish1 = new WishDto.WishBuilder<DateWishDto>()
                 .withWishId(1)
                 .withWishType(WishType.NEGATIVE)
