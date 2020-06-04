@@ -20,6 +20,7 @@ public class DateWishService {
      */
     public Set<WishDto<DateWishDto>> getAllDateWishes(Integer userId) {
         return this.wishRequestManager.getAllNegativeDateWishesForUser(userId);
+
     }
 
     /**

@@ -44,7 +44,7 @@ public class DateWishApi {
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
 
-        Set<WishDto<DateWishDto>> wishes = this.dateWishService.getAllDateWishes(userID);
+        Set<WishDto<DateWishDto>> wishes = this.dateWishService.getAllDateWishesOfUser(userID);
 
         if (wishes.size() == 0) {
             return Response
