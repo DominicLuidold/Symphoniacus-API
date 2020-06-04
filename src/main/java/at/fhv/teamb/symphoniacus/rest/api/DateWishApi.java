@@ -39,7 +39,7 @@ public class DateWishApi {
     @GET
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllWishesOfUser(@Context SecurityContext securityContext) {
+    public Response getAllDateWishesOfUser(@Context SecurityContext securityContext) {
         //To get the current logged in Username
         Principal principal = securityContext.getUserPrincipal();
         Integer userID = Integer.valueOf(principal.getName());
@@ -51,7 +51,7 @@ public class DateWishApi {
                     .status(Response.Status.OK)
                     .type("text/json")
                     .entity(new CustomResponseBuilder<Set<WishDto<DateWishDto>>>("success", 200)
-                            .withMessage("Cant find any date wishes.")
+                            .withMessage("No Date Requests were found")
                             .withPayload(wishes)
                             .build()
                     )
@@ -95,10 +95,10 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
-                        .withMessage("Cant save new date wishe.")
+                        .withMessage("Saving new Date Request failed")
                         .build()
                 )
                 .build();
@@ -129,10 +129,10 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
-                        .withMessage("Cant find Wish.")
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
+                        .withMessage("Cannot find Date Request with given id")
                         .build()
                 )
                 .build();
@@ -151,9 +151,11 @@ public class DateWishApi {
             WishDto<DateWishDto> dateWish,
             @Context SecurityContext securityContext
     ) {
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
 
         Optional<WishDto<DateWishDto>> persDateWish =
-                this.dateWishService.updateDateWishDetails(dateWish);
+                this.dateWishService.updateDateWishDetails(dateWish, userID);
 
 
         if (persDateWish.isPresent()) {
@@ -167,10 +169,10 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
-                        .withMessage("Cant find Wish.")
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
+                        .withMessage("Cannot find Date Request with given id")
                         .build()
                 )
                 .build();
@@ -200,10 +202,10 @@ public class DateWishApi {
                     .build();
         }
         return Response
-                .status(Response.Status.OK)
+                .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 400)
-                        .withMessage("Cant find Wish.")
+                .entity(new CustomResponseBuilder<WishDto<DateWishDto>>("failure", 404)
+                        .withMessage("Cannot find Date Request with given id")
                         .build()
                 )
                 .build();
