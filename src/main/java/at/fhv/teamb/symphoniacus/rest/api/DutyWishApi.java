@@ -29,6 +29,10 @@ public class DutyWishApi {
 
     private DutyWishService dutyWishService = new DutyWishService();
 
+    /**
+     * Get all Duty wishes.
+     * @return all Duty wishes of a User.
+     */
     @GET
     @Secured
     @Produces(MediaType.APPLICATION_JSON)

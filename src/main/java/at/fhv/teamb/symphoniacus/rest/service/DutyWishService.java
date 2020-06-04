@@ -32,8 +32,7 @@ public class DutyWishService {
 
     /**
      * Get all future duty wishes of user.
-     * @param userId
-     * @return
+     * @param userId of user.
      */
     public Set<WishDto<DutyWishDto>> getAllFutureDutyWishesOfUser(
         Integer userId
