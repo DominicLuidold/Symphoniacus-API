@@ -92,8 +92,7 @@ public class DutyWishService {
      *
      * @param wishId of the requested duty.
      */
-    public Boolean deleteDutyWish(Integer wishId) {
+    public boolean deleteDutyWish(Integer wishId) {
         return this.wishRequestManager.removeDutyWish(wishId);
     }
-
 }

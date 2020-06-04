@@ -148,7 +148,7 @@ public class DutyApi {
             rb = rb
                     .entity(
                             crb
-                                    .withMessage("Cant find any Duty wishes.")
+                                    .withMessage("No Duty Requests found")
                                     .build()
                     );
 
@@ -198,7 +198,7 @@ public class DutyApi {
                 .status(Response.Status.OK)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
-                        .withMessage("Cant find Duty wish.")
+                        .withMessage("No Duty Requests found")
                         .build()
                 )
                 .build();
@@ -243,7 +243,7 @@ public class DutyApi {
                 .status(Response.Status.OK)
                 .type("text/json")
                 .entity(new CustomResponseBuilder<Set<WishDto<DutyWishDto>>>("success", 200)
-                        .withMessage("Cant find Duty wish.")
+                        .withMessage("No Duty Requests found")
                         .build()
                 )
                 .build();
@@ -292,7 +292,6 @@ public class DutyApi {
                 .build();
     }
 
-
     /**
      * Delete one specific wish of a specific duty.
      *
@@ -309,7 +308,7 @@ public class DutyApi {
             @Context SecurityContext securityContext
     ) {
 
-        Boolean deleted = this.dutyWishService.deleteDutyWish(wishId);
+        boolean deleted = this.dutyWishService.deleteDutyWish(wishId);
 
         if (deleted) {
             return Response

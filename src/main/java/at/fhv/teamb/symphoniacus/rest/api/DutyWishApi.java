@@ -57,7 +57,7 @@ public class DutyWishApi {
         if (wishes.isEmpty()) {
             rb = rb.entity(
                 crb
-                    .withMessage("Cant find any Duty wishes.")
+                    .withMessage("No Duty Requests found")
                     .build()
             );
         } else {

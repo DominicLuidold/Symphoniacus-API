@@ -53,7 +53,7 @@ public class DateWishService {
     /**
      * Delete a date wish of the given ID.
      */
-    public Boolean deleteWish(Integer wishId) {
+    public boolean deleteWish(Integer wishId) {
         return this.wishRequestManager.removeNegativeDateWish(wishId);
     }
 }
