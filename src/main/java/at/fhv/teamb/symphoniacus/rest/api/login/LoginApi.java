@@ -58,7 +58,7 @@ public class LoginApi {
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
                             "Client Failure", 401
-                    ).withMessage("Only Musician are allowed to login.")
+                    ).withMessage("Only Musicians are allowed to login.")
                             .build();
 
             return Response

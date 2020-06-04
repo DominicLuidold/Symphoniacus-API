@@ -151,9 +151,11 @@ public class DateWishApi {
             WishDto<DateWishDto> dateWish,
             @Context SecurityContext securityContext
     ) {
+        Principal principal = securityContext.getUserPrincipal();
+        Integer userID = Integer.valueOf(principal.getName());
 
         Optional<WishDto<DateWishDto>> persDateWish =
-                this.dateWishService.updateDateWishDetails(dateWish);
+                this.dateWishService.updateDateWishDetails(dateWish, userID);
 
 
         if (persDateWish.isPresent()) {
