@@ -41,7 +41,7 @@ public class Main {
         // in the public folder
         // HttpHandler httpHandler =
         //    new CLStaticHttpHandler(HttpServer.class.getClassLoader(), "/public/");
-        // httpServer.getServerConfiguration().addHttpHandler(httpHandler, "/web");
+        // httpServer.getServerConfiguration().addHttpHandler(httpHandler, "/");
 
 
 
