@@ -3,8 +3,6 @@ package at.fhv.teamb.symphoniacus.rest;
 import at.fhv.teamb.symphoniacus.rest.configuration.jersey.ObjectMapperResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
-import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -22,7 +20,7 @@ import java.net.URI;
 public class Main {
 
     private static final Logger LOG = LogManager.getLogger(Main.class);
-    private static final String BASE_URI = "http://0.0.0.0:9005/api/";
+    private static final String BASE_URI = "http://0.0.0.0:9005/";
 
     /**
      * Starts up the REST API.
@@ -41,9 +39,9 @@ public class Main {
         // Change the apiUrl in the enviroments.ts to 'http://127.0.0.1:9005/api'
         // Run ng build and copy the files from Symphoniacus-Web/dist/Symphoniacus-Web
         // in the public folder
-        HttpHandler httpHandler =
-            new CLStaticHttpHandler(HttpServer.class.getClassLoader(), "/public/");
-        httpServer.getServerConfiguration().addHttpHandler(httpHandler, "/");
+        // HttpHandler httpHandler =
+        //    new CLStaticHttpHandler(HttpServer.class.getClassLoader(), "/public/");
+        // httpServer.getServerConfiguration().addHttpHandler(httpHandler, "/web");
 
 
 
