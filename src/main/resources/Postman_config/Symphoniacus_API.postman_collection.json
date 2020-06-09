@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "d9594bc6-36db-4ec3-8138-b1f00db038b9",
+		"name": "Symphoniacus_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "duties",
+			"item": [
+				{
+					"name": "wishes",
+					"item": [
+						{
+							"name": "Delete wish",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNjkwNTU5LCJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGFpbiJ9.vT-lyQZlATVUvmjIfR1-858tKOQGeNmgJ0HxhAWGVsU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://0.0.0.0:9005/api/duties/2/wishes/1",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "9005",
+									"path": [
+										"api",
+										"duties",
+										"2",
+										"wishes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all duty wishes of duty and user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://0.0.0.0:9005/api/datewishes/12",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "9005",
+									"path": [
+										"api",
+										"datewishes",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update wish details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNTkyODA4LCJ1c2VybmFtZSI6InBhaW4ifQ.Du9Cz2d184UpTIpzjUuOzWnii-bESocOKgFJIQV3oUA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://0.0.0.0:9005/duties/2/wishes/1",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "9005",
+									"path": [
+										"duties",
+										"2",
+										"wishes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new duty wish",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDcwMDE3MiwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.e8ogifL9M4430pzcCuOD2l-P2LhE_H8ZEddi0K1PJfQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://0.0.0.0:9005/api/duties/2/wishes/1",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "9005",
+									"path": [
+										"api",
+										"duties",
+										"2",
+										"wishes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get all Duties",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MTAzMDM2NiwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.fHySt4RkLIMRAMiBSkpcDv9zM4W0sbpt-vn_9Ycxesk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/duties",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"duties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Duty",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNjg0NDQyLCJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGFpbiJ9._hT4mCxBPcI4MlhMAlanABI8snB0qtY3KJqzDeyzGpc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/duties/33",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"duties",
+								"33"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "datewishes",
+			"item": [
+				{
+					"name": "Get all date wishes of a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new date wish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wishType\": \"NEGATIVE\",\n    \"target\": \"DATE\",\n    \"status\": \"REVIEW\",\n    \"reason\": \"I wanna have free\",\n    \"details\": {\n        \"start\": \"2020-05-01\",\n        \"end\": \"2020-05-01\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get details of date wish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes/12",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update existing date wish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes/12",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete exisitng date wish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9pYWN1cyIsImZ1bGxOYW1lIjoiVmF1Z2huIEJvdWxlcyIsInVzZXJUeXBlIjoiRE9NQUlOX01VU0lDSUFOIiwiZXhwIjoxNTkwNjg0NDQyLCJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGFpbiJ9._hT4mCxBPcI4MlhMAlanABI8snB0qtY3KJqzDeyzGpc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes/12",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "15719292-b9b5-4433-a455-0f63b24adeee",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "14000bae-13e6-4aaf-b57c-e6be12bc4439",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "dutywishes",
+			"item": [
+				{
+					"name": "Get all duty wishes user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTeW1waG9uaWFjdXMiLCJmdWxsTmFtZSI6IlZhdWdobiBCb3VsZXMiLCJ1c2VyVHlwZSI6IkRPTUFJTl9NVVNJQ0lBTiIsImV4cCI6MTU5MDc2MTI3NCwidXNlcklkIjoxLCJ1c2VybmFtZSI6InBhaW4ifQ.HPygTFNLrktol3VZDqQF473Og8FdmuC4v7xInFgbpxw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/datewishes/12",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"datewishes",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "669dd335-b6a8-4e7c-918c-4aa9fd99180f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "def204a2-883b-42c6-a325-47439fd68f9a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"pain\",\n\t\"password\" : \"rbp\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:9005/api/login",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "9005",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

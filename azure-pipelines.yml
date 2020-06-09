@@ -1,0 +1,31 @@
+trigger:
+- master
+- develop
+- feature/*
+- release/*
+- bugfix/*
+- hotfix/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+- checkout: git://OrchestraManagement/Symphoniacus@develop
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: '$(SymphoniacusAPI.WorkingDirectory)/gradlew'
+    options: '--project-dir ./Symphoniacus-API'
+    gradleOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    checkStyleRunAnalysis: true
+    tasks: 'build'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: '$(SymphoniacusAPI.WorkingDirectory)/**/jacocoTestReport.xml'
+    reportDirectory: '$(SymphoniacusAPI.WorkingDirectory)/**/jacoco/test/**'
