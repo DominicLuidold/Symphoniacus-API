@@ -285,9 +285,10 @@ public class DutyApi {
         return Response
                 .status(Response.Status.BAD_REQUEST)
                 .type("text/json")
-                .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("success", 201)
-                        .withPayload(newWish.get())
-                        .build()
+                .entity(new CustomResponseBuilder<WishDto<DutyWishDto>>("failure", 400)
+                    .withMessage("Request was not valid")
+                    .withPayload(newWish.get())
+                    .build()
                 )
                 .build();
     }
