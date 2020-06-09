@@ -33,11 +33,17 @@ public class Main {
         rc.register(JacksonFeature.class);
         rc.packages("at.fhv.teamb.symphoniacus.rest");
 
-        HttpServer httpServer = GrizzlyHttpServerFactory
-            .createHttpServer(
-                URI.create(BASE_URI),
-                rc
-            );
+        HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+
+        // Only to serve the static content in the /resources/public directory
+        // Change the apiUrl in the enviroments.ts to 'http://127.0.0.1:9005/api'
+        // Run ng build and copy the files from Symphoniacus-Web/dist/Symphoniacus-Web
+        // in the public folder
+        // HttpHandler httpHandler =
+        //    new CLStaticHttpHandler(HttpServer.class.getClassLoader(), "/public/");
+        // httpServer.getServerConfiguration().addHttpHandler(httpHandler, "/");
+
+
 
         try {
             httpServer.start();

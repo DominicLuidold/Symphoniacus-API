@@ -57,12 +57,12 @@ public class LoginApi {
             LOG.error(e);
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
-                            "Client Failure", 401
+                            "Client Failure", 403
                     ).withMessage("Only Musicians are allowed to login.")
                             .build();
 
             return Response
-                    .status(Response.Status.UNAUTHORIZED)
+                    .status(Response.Status.FORBIDDEN)
                     .type("text/json")
                     .entity(errorResponse)
                     .build();
@@ -71,8 +71,8 @@ public class LoginApi {
             LOG.error(e);
             CustomResponse<Void> errorResponse =
                     new CustomResponseBuilder<Void>(
-                            "Unauthorized", 403
-                    ).withMessage("The provided login credentials are invalid")
+                            "Unauthorized", 401
+                    ).withMessage("The provided login credentials are invalid.")
                             .build();
 
             return Response
